@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<!-- TODO server: (////)
+* fix bug: export view as link fails 
+  * edit each viewconf to prepend "http://higlass.io" to exportViewUrl
+* add progressive scrolling effects with updateFunctions (./src/conductor.js)
+  * natural zooming
+  * fade in/out
+* support view sync
+* revert view when scrolling back up
+* error handling on json creation in ./src/conductor.js
+* css: show only current section and fade those above and below
+* error handling for no input or invalid input
+* allow focus on just text or just HG (remember aspect ratio)
+* update Download JSON value instead of appending links
+-->
+
+<!-- TODO ui: (////)
+* css
+-->
+
+<!-- In this commit: 
+* Markdown support
+* dynamically create scrolling sections
+* save current state of view config as URL
+* export as JSON
+-->
+
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=500" />
+  <title>HiGlass Generator</title>
+
+  <link rel="stylesheet" type="text/css" href="third_party/style.css"> 
+  <link rel="stylesheet" href="./node_modules/higlass/app/styles/page.css">
+  <link rel="stylesheet" href="https://unpkg.com/higlass@1.0.1/dist/styles/hglib.css" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.2/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/15.6.2/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.31.0/react-bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="./third_party/mmd.min.js"></script>
+  <script src="./third_party/odiff.umd.js"></script>
+
+  <!-- Font Awesome JS -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+  <script src="./dist/main.js"></script>
+
+</head>
+
+<body >
+  <div class="wrapper">
+
+    <!-- Report -->
+    <div id="graphic">
+
+      <div id="scrollingText"> 
+        <!-- Text -->
+        <div id="sections"></div>
+        <!-- Inputs -->
+        <div class="form-group">
+          <label for="exampleTextArea">Enter section text here: </label>
+          <textarea class="form-control" id="exampleTextArea" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitText">Submit</button>
+      </div>
+        
+      <!-- HiGlass -->
+      <div style="margin: auto; width: 50%;">
+        <div
+          id="development-demo"
+          style="top: 1rem; bottom: 1rem; right: 1rem">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+<!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
+<script src="/third_party/scroller.js"></script>
+<script src="/third_party/scrollerDisplay.js"></script>
+<script src="/third_party/scrollerAddOns.js"></script>
+
+<script src="src/compareViewConfs.js"></script>
+<script src="src/editHTML.js"></script>
+<script src="src/loadHg.js"></script>
+
+</html>

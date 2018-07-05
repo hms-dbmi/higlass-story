@@ -1,0 +1,42 @@
+#graphic {
+  position: relative;
+  margin: 0;
+  padding: 0px;
+  max-width: calc(50% + 100vh * 660 / 500);
+  width: 100%;
+}
+
+#scrollingText {
+  position: relative;
+  display: inline-block;
+  width: calc(25%);
+  min-width: calc(100% - 100vh * 660 / 500);
+  margin-bottom: calc(100vh - 100px);
+  padding: 10px;
+}
+
+#development-demo {
+  float:right;
+  display: inline-block;
+  position: fixed;
+  top: 0px;
+  width: calc(55%);
+  max-width: calc(100vh * 660 / 500);
+}
+
+.step {
+  margin-top: 20px;
+  margin-bottom: 60px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.highlighted-step {
+  border-left: 6px solid #D9D4D0;
+  padding-left: 4px;
+}
+
+p {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
