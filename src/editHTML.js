@@ -1,5 +1,10 @@
 $(document).ready(function (){ 
 
+	var a = document.createElement('a');
+	a.id = "downloadLink";
+	var container = document.getElementById('scrollingText');
+	container.appendChild(a);
+
 	$("#scrollingText").on('click', '#submitText', function() {
 	  $( "#exampleTextArea" ).submit();
 	});
@@ -13,7 +18,6 @@ $(document).ready(function (){
 				if(typeof globalVars.prevViewConf !== 'undefined') {
 
 			  	var trans = globalVars.typeOfChange(globalVars.prevViewConf, globalVars.hgv.exportAsViewConfString(), globalVars.viewConfUrls.slice(-1)[0]);
-			  	console.log(trans)
 					var obj = {
 						"text": mmd(exampleTextArea.value),
 						"activate": trans[0],
@@ -43,18 +47,15 @@ $(document).ready(function (){
 		  		globalVars.activateFunctions.push( function() {});
 		  		globalVars.json.sections.push({"text": mmd(exampleTextArea.value), "activate": "none", "activateParams": {}});
 		  	}
-		  	console.log(globalVars.activateFunctions)
 		  	scrollerDisplay(d3.select('#graphic'), 'step', globalVars.activateFunctions)
 		  	document.getElementById('exampleTextArea').value = "";
 		  	globalVars.prevViewConf = globalVars.hgv.exportAsViewConfString();
 
 				var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
-				var a = document.createElement('a');
 				a.href = 'data:' + data;
 				a.download = 'data.json';
 				a.innerHTML = 'Download JSON';
-				var container = document.getElementById('graphic');
-				container.appendChild(a);
+				
 			})
 				.catch((err) => { console.error('Something did not work. Sorry', err); });
 

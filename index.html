@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 
 <!-- TODO server: (////)
-* fix bug: export view as link fails 
-  * edit each viewconf to prepend "http://higlass.io" to exportViewUrl
 * add progressive scrolling effects with updateFunctions (./src/conductor.js)
   * natural zooming
   * fade in/out
 * support view sync
 * revert view when scrolling back up
 * error handling on json creation in ./src/conductor.js
-* css: show only current section and fade those above and below
 * error handling for no input or invalid input
 * allow focus on just text or just HG (remember aspect ratio)
-* update Download JSON value instead of appending links
+* css: more space b/w sections
+* image preview next to text
 -->
 
 <!-- TODO ui: (////)
-* css
+* add images
+* adding/removing sections
+* skip to sections
 -->
 
 <!-- In this commit: 
-* Markdown support
-* dynamically create scrolling sections
-* save current state of view config as URL
-* export as JSON
+* update Download JSON value instead of appending links
+* css: show only current section and fade those above and below
+* changed bootstrap css version to 3.3.5 to fix bug of modal dialogs not displaying
+* edit CSS to change font family/color/size and background color onscreen
+* save edited CSS to JSON
 -->
 
 <html class="no-js" lang="en">
@@ -36,7 +37,7 @@
   <link rel="stylesheet" type="text/css" href="third_party/style.css"> 
   <link rel="stylesheet" href="./node_modules/higlass/app/styles/page.css">
   <link rel="stylesheet" href="https://unpkg.com/higlass@1.0.1/dist/styles/hglib.css" type="text/css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.2/react.min.js"></script>
@@ -44,6 +45,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.31.0/react-bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="./third_party/mmd.min.js"></script>
   <script src="./third_party/odiff.umd.js"></script>
 
@@ -56,6 +58,74 @@
 </head>
 
 <body >
+
+    <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-sm" id="myBtn">Edit CSS</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit CSS</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="selFont">Choose font: </label>
+            <select class="form-control" id="selFont">
+              <option>Helvetica Neue</option>
+              <option>Tahoma</option>
+              <option>Sans-Serif</option>
+              <option>Trebuchet</option>
+              <option>Arial</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="selFontColor">Choose font color: </label>
+            <select class="form-control" id="selFontColor">
+              <option>black</option>
+              <option>red</option>
+              <option>blue</option>
+              <option>green</option>
+              <option>white</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="selFontSize">Choose font size: </label>
+            <div class="col-10">
+              <input class="form-control" type="number" value="22" id="selFontSize">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="selBgColor">Choose background color: </label>
+            <select class="form-control" id="selBgColor">
+              <option>white</option>
+              <option>black</option>
+              <option>blue</option>
+              <option>green</option>
+              <option>brown</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="submitCSS">Apply Changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+
   <div class="wrapper">
 
     <!-- Report -->
@@ -85,11 +155,13 @@
 
 </body>
 
+
 <!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
 <script src="/third_party/scroller.js"></script>
 <script src="/third_party/scrollerDisplay.js"></script>
 <script src="/third_party/scrollerAddOns.js"></script>
 
+<script src="src/editCSS.js"></script> 
 <script src="src/compareViewConfs.js"></script>
 <script src="src/editHTML.js"></script>
 <script src="src/loadHg.js"></script>

@@ -38,7 +38,7 @@ window.onload = function here() {
   function createHgv(response) { 
     globalVars.hgv = globalVars.createHg( // creates the view
       document.getElementById('development-demo'),
-      response,
+      globalVars.allowExport(response),
       { bounded: true }
     );
   }

@@ -29,14 +29,17 @@
   margin-bottom: 60px;
   padding-right: 10px;
   padding-left: 10px;
+  opacity: 0.3;
 }
 
 .highlighted-step {
   border-left: 6px solid #D9D4D0;
   padding-left: 4px;
+  opacity: 1.0 !important;
 }
 
 p {
   font-size: 1.25rem;
   line-height: 1.5;
 }
+
