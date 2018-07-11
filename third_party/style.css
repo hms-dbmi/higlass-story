@@ -9,7 +9,7 @@
 #scrollingText {
   position: relative;
   display: inline-block;
-  width: calc(25%);
+  width: calc(30%);
   min-width: calc(100% - 100vh * 660 / 500);
   margin-bottom: calc(100vh - 100px);
   padding: 10px;
@@ -20,7 +20,7 @@
   display: inline-block;
   position: fixed;
   top: 0px;
-  width: calc(55%);
+  width: calc(65%);
   max-width: calc(100vh * 660 / 500);
 }
 

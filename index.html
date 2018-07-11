@@ -4,27 +4,30 @@
 * add progressive scrolling effects with updateFunctions (./src/conductor.js)
   * natural zooming
   * fade in/out
-* support view sync
 * revert view when scrolling back up
-* error handling on json creation in ./src/conductor.js
-* error handling for no input or invalid input
 * allow focus on just text or just HG (remember aspect ratio)
 * css: more space b/w sections
 * image preview next to text
+* change method of implementing closure within loops for src/scrollUp.js
 -->
 
 <!-- TODO ui: (////)
-* add images
+* add images and videos
 * adding/removing sections
+* edit section content
 * skip to sections
 -->
 
+<!-- TODO before next commit: (////)
+
+-->
+
 <!-- In this commit: 
-* update Download JSON value instead of appending links
-* css: show only current section and fade those above and below
-* changed bootstrap css version to 3.3.5 to fix bug of modal dialogs not displaying
-* edit CSS to change font family/color/size and background color onscreen
-* save edited CSS to JSON
+* changed json format to include x and y coordinates as parameters with every reload action
+* changed json format to remove initialHg and load first section directly
+* revert when scrolling up
+* fixed ERROR: too many WebGL contexts by using setViewConfig instead of createHgComponent
+* fixed ERROR: zooming stacks on setViewConfigsom
 -->
 
 <html class="no-js" lang="en">
@@ -158,10 +161,11 @@
 
 <!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
 <script src="/third_party/scroller.js"></script>
-<script src="/third_party/scrollerDisplay.js"></script>
 <script src="/third_party/scrollerAddOns.js"></script>
 
 <script src="src/editCSS.js"></script> 
+<script src="src/scrollUp.js"></script>
+<script src="/third_party/scrollerDisplay.js"></script>
 <script src="src/compareViewConfs.js"></script>
 <script src="src/editHTML.js"></script>
 <script src="src/loadHg.js"></script>
