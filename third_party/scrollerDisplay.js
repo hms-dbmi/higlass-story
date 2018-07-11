@@ -3,7 +3,7 @@
 // (in particular, see lines 765-793)
 
 
-function scrollerDisplay(container, stepClass, activateFunctions) {
+function scrollerDisplay(container, stepClass, activateFunctions, reverseFunctions) {
   var lastIndex = -1
   var activeIndex = 0
 
@@ -18,7 +18,11 @@ function scrollerDisplay(container, stepClass, activateFunctions) {
     var sign = (activeIndex - lastIndex) < 0 ? -1 : 1
     var scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign)
     scrolledSections.forEach(function(i) {
-      activateFunctions[i]() // doesn't matter if number of functions exceeds sections
+      if(isScrollUp === false) {
+        activateFunctions[i]() // doesn't matter if number of functions exceeds sections
+      } else {
+        reverseFunctions[i]()
+      }
     })
     lastIndex = activeIndex
 
@@ -30,3 +34,21 @@ function scrollerDisplay(container, stepClass, activateFunctions) {
   })
 
 }
+
+  var lastScrollTop = 0;
+  var isScrollUp = false;
+  $(window).scroll(function(event){
+     var scrollTop = $(this).scrollTop();
+     if (scrollTop > lastScrollTop){
+         isScrollUp = false;
+     }
+     else if(scrollTop == lastScrollTop)
+     {
+       //do nothing 
+       //In IE this is an important condition because there seems to be some instances where the last scrollTop is equal to the new one
+     }
+     else {
+        isScrollUp = true;
+     }
+     lastScrollTop = scrollTop;
+  });
