@@ -18,6 +18,13 @@ window.onload = function here() {
       .then(null, showError);
   }
 
+  globalVars.loadViewConfAndZoom = function(viewConfigUrl, loadZoomParams) {
+    fetch(viewConfigUrl)
+      .then(getJSON, handleErrors)
+      .then(function(response) { return setViewConfAndZoom(response, loadZoomParams) }, handleErrors)
+      .then(null, showError);
+  }
+
   function handleErrors(response) {
     throw(response);
   }
@@ -43,6 +50,15 @@ window.onload = function here() {
   function setViewConf(response) {
     const p = globalVars.hgv.setViewConfig(response);
     p.then(() => {
+    });
+  }
+
+  function setViewConfAndZoom(response, loadZoomParams) {
+    const p = globalVars.hgv.setViewConfig(response);
+     p.then(() => { 
+      for(var k=0; k<Object.keys(loadZoomParams).length; k++) {
+        globalVars.hgv.zoomTo(loadZoomParams[k][0], loadZoomParams[k][1], loadZoomParams[k][2], loadZoomParams[k][3], loadZoomParams[k][4], 0);
+      }
     });
   }
 

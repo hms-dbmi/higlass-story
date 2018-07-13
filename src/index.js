@@ -1,19 +1,19 @@
 import createHgComponent from 'higlass';
 
 window.globalVars = {}; //global Vars: createHg, hgv, viewConfUrls, typeOfChange, prevViewConf, loadViewConf
-													// json, allowExport
+													// json, allowExport, img
 
 globalVars.createHg = createHgComponent;
 
 globalVars.viewConfUrls = [];
 
 globalVars.json = {
-	initialHg: "",
 	fontFamily: "Helvetica Neue",
 	fontColor: "black",
 	fontSize: 22,
 	bgColor: "white",
-	sections: []
+	textSections: [],
+	mediaSections: []
 }
 
 globalVars.allowExport = function (viewConf) { 
