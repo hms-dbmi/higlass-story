@@ -8,7 +8,8 @@
 * css: more space b/w sections
 * image preview next to text
 * change method of implementing closure within loops for src/scrollUp.js
-* fix bug: getDataURI doesn't return PNG of current hgv
+* fix bug: can't drag element to bottom
+* sort arrays after dragging
 -->
 
 <!-- TODO ui: (////)
@@ -17,6 +18,9 @@
 * skip to sections
 * prompt user to enter next text/media with arrows
 * protect user from adding in wrong order
+* specify image size
+* add non-youtube videos
+* fix bug: enable dropping section at last place
 -->
 
 <!-- TODO before next commit: (////)
@@ -24,8 +28,8 @@
 -->
 
 <!-- In this commit: 
-* add images and videos
-* put thumbnail next to images and videos (hgv thumbnail in progress)
+* dragging and dropping to re-order sections (other effects not yet implemented)
+* add images with captions inline and to main view
 -->
 
 <html class="no-js" lang="en">
@@ -136,7 +140,11 @@
 
       <div id="scrollingText"> 
         <!-- Text -->
-        <div id="sections"></div>
+        <div id="dragAndDrop">
+          <div id="sections">
+          </div>
+          <section class="buffer" draggable="false"><p style="visibility:hidden">Buffer space for drag and drop</p></section>
+        </div>
         <!-- Inputs -->
         <div id="sectionOptions">
           <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selDisplay">
@@ -145,6 +153,7 @@
             <option value="hg">HiGlass View</option>
             <option value="img">Image</option>
             <option value="vid">Video</option>
+            <option value="fig">Image with Caption</option>
           </select>
 
           <div id="textOptions">
@@ -168,6 +177,15 @@
             </div>
           </div>
 
+          <div id="figOptions">
+            <label class="radio-inline"><input type="radio" name="selFigPos" id="selFigInline" checked>Inline</label>
+            <label class="radio-inline"><input type="radio" name="selFigPos" id="selFigMain">Main View</label>
+            <input type="url" class="url-type-styled-input" id="figUrl">
+            <div class="form-group">
+              <textarea class="form-control" id="figText" rows="3" placeholder="Enter figure text"></textarea>
+            </div>
+          </div>
+
           <button type="submit" class="btn btn-success" id="submit">Submit</button>
         </div>
 
@@ -184,6 +202,7 @@
           </div>
           <div id="img"></div> <!-- Image -->
           <iframe id='vid' width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> <!-- Video -->
+          <div id="fig"></div>
         </div>
 
     </div>
@@ -193,6 +212,7 @@
 
 
 <!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
+<script src="src/dragAndDrop.js"></script> 
 <script src="/third_party/scroller.js"></script>
 <script src="/third_party/scrollerAddOns.js"></script>
 <script src="src/editCSS.js"></script> 

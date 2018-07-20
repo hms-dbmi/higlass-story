@@ -9,17 +9,7 @@
   padding:5%
 }
 
-#textOptions {
-  display:none; 
-  padding-top:3%
-}
-
-#imgOptions {
-  display:none; 
-  padding-top:3%
-}
-
-#vidOptions {
+#textOptions, #imgOptions, #vidOptions, #figOptions {
   display:none; 
   padding-top:3%
 }
@@ -29,12 +19,14 @@
   border-radius: 10px
 }
 
-#imgUrl {
+#imgUrl, #figUrl {
   display:block; 
-  width:70%; border-radius: 10px
+  width:70%; border-radius: 10px;
+  margin-top:2%;
+  margin-bottom:2%;
 }
 
-#sectionText {
+#sectionText, #figText {
   border-radius: 10px
 }
 
@@ -92,14 +84,28 @@ input[type="url"]:focus {
   display:none;
 }
 
-#img {
-  display:none;
-}
-
-#vid {
+#img, #vid, #fig {
   display:none;
 }
 
 #downloadLink {
   
+}
+
+.dragElem {
+  opacity:0.1;
+}
+
+.over {
+  border-top: 2px solid blue;
+}
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
 }
