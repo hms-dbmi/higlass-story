@@ -19,6 +19,17 @@
   float:right;
   display: inline-block;
   position: fixed;
+  width: calc(65%);
+  max-width: calc(100vh * 660 / 500);
+  top: 4rem; 
+  bottom: 1rem; 
+  right: 1rem
+}
+
+#media {
+  float:right;
+  display: inline-block;
+  position: fixed;
   top: 0px;
   width: calc(65%);
   max-width: calc(100vh * 660 / 500);
@@ -33,7 +44,7 @@
 }
 
 .highlighted-step {
-  border-left: 6px solid #D9D4D0;
+  border-left: 6px solid #878f99;
   padding-left: 4px;
   opacity: 1.0 !important;
 }
@@ -43,3 +54,15 @@ p {
   line-height: 1.5;
 }
 
+.media {
+  margin: auto; width: 50%
+}
+
+body {
+  background-color: #f9f9f9;
+}
+
+.thumbnail {
+  width: 4rem;
+  height: auto;
+}

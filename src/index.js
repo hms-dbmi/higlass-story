@@ -8,12 +8,12 @@ globalVars.createHg = createHgComponent;
 globalVars.viewConfUrls = [];
 
 globalVars.json = {
-	initialHg: "",
 	fontFamily: "Helvetica Neue",
 	fontColor: "black",
 	fontSize: 22,
-	bgColor: "white",
-	sections: []
+	bgColor: "#f9f9f9",
+	textSections: [],
+	mediaSections: []
 }
 
 globalVars.allowExport = function (viewConf) { 

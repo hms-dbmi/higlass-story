@@ -34,7 +34,8 @@ function scrollerDisplay(container, stepClass, activateFunctions, reverseFunctio
   })
 
 }
-
+  
+  // detect whether user is scrolling up or scrolling down
   var lastScrollTop = 0;
   var isScrollUp = false;
   $(window).scroll(function(event){
