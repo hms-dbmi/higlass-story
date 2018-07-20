@@ -17,8 +17,8 @@ globalVars.typeOfChange = function (viewConf1, viewConf2, url) {
         }
     }
     for(var i=0; i<viewConf2.views.length; i++) {
-        params[i] = [viewConf2.views[i].uid, viewConf2.views[i].initialXDomain[0], viewConf2.views[i].initialXDomain[1], 
-            viewConf2.views[i].initialYDomain[0], viewConf2.views[i].initialYDomain[1]];
+      params[i] = [viewConf2.views[i].uid, viewConf2.views[i].initialXDomain[0], viewConf2.views[i].initialXDomain[1], 
+          viewConf2.views[i].initialYDomain[0], viewConf2.views[i].initialYDomain[1]];
     }
     return ["zoom",params];
 }

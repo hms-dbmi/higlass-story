@@ -1,7 +1,7 @@
 $(document).ready(function (){ 
 
-	$("#myBtn").click(function(){
-        $("#myModal").modal();
+	$("#editCSS").click(function(){
+        $("#cssModal").modal();
     });
 
 	$(".modal-footer").on('click', '#submitCSS', function() {
@@ -35,7 +35,7 @@ $(document).ready(function (){
 	});
 
 	$(".modal-body").on('submit', '#selBgColor', function( event ) {
-		document.body.style.background = selBgColor.value;
+		document.body.style.backgroundColor = selBgColor.value;
 		globalVars.json.bgColor = selBgColor.value;
 		event.preventDefault();
 	});

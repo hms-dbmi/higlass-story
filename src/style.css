@@ -35,11 +35,6 @@
   max-width: calc(100vh * 660 / 500);
 }
 
-.form-check.form-check-inline {
-  display: inline-block !important;
-  padding: 3%;
-}
-
 .step {
   margin-top: 20px;
   margin-bottom: 60px;
@@ -49,7 +44,7 @@
 }
 
 .highlighted-step {
-  border-left: 6px solid #D9D4D0;
+  border-left: 6px solid #878f99;
   padding-left: 4px;
   opacity: 1.0 !important;
 }
@@ -59,26 +54,15 @@ p {
   line-height: 1.5;
 }
 
-input[type="url"] {
-   width:75%;
-   padding:0.5em;
-   margin:0.375em 0 1.25em 0;
-   background-color: #fdfdfd;
-   border: 0.0625em solid;
-   border-color: #ccc;
-   box-shadow: inset 0 0.0625em 0.125em rgba(0,0,0,.2);
-   opacity: .75;
+.media {
+  margin: auto; width: 50%
 }
 
-input[type="url"]:focus {
-   outline: none;
-   background-color: #fff;
-   border-color: rgba(28, 126, 194,.8);
-   box-shadow: inset 0 0.0625em 0.125em rgba(0,0,0,.2), 0 0 0.125em rgba(28, 126, 194,.8);
-   opacity: 1;
+body {
+  background-color: #f9f9f9;
 }
 
-.url-type-styled-input:invalid {
-   border-color: rgba(203,0,2,.8) !important;
-   box-shadow: inset 0 0.0625em 0.125em rgba(0,0,0,.2), 0 0 0.125em rgba(203,0,2,.8) !important;
+.thumbnail {
+  width: 4rem;
+  height: auto;
 }

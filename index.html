@@ -8,22 +8,24 @@
 * css: more space b/w sections
 * image preview next to text
 * change method of implementing closure within loops for src/scrollUp.js
+* fix bug: getDataURI doesn't return PNG of current hgv
 -->
 
 <!-- TODO ui: (////)
-* add images and videos
 * adding/removing sections
 * edit section content
 * skip to sections
+* prompt user to enter next text/media with arrows
+* protect user from adding in wrong order
 -->
 
 <!-- TODO before next commit: (////)
-
+* 
 -->
 
 <!-- In this commit: 
-* fixed zooming bug by setting zoom animation time at 0 => submit ticket
-* functional support for adding images and video but UI will be changed
+* add images and videos
+* put thumbnail next to images and videos (hgv thumbnail in progress)
 -->
 
 <html class="no-js" lang="en">
@@ -33,10 +35,11 @@
   <meta name="viewport" content="width=500" />
   <title>HiGlass Story</title>
 
-  <link rel="stylesheet" type="text/css" href="third_party/style.css"> 
-  <link rel="stylesheet" href="./node_modules/higlass/app/styles/page.css">
   <link rel="stylesheet" href="https://unpkg.com/higlass@1.0.1/dist/styles/hglib.css" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="src/style.css"> 
+  <link rel="stylesheet" type="text/css" href="src/inputStyle.css"> 
+  <link rel="stylesheet" href="./node_modules/higlass/app/styles/page.css">
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.2/react.min.js"></script>
@@ -59,10 +62,10 @@
 <body >
 
     <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-sm" id="myBtn">Edit CSS</button>
+  <button type="button" class="btn btn-info btn-sm" id="editCSS">Edit CSS</button>
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="cssModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -105,6 +108,7 @@
           <div class="form-group">
             <label for="selBgColor">Choose background color: </label>
             <select class="form-control" id="selBgColor">
+              <option value="#f9f9f9">off-white</option>
               <option>white</option>
               <option>black</option>
               <option>blue</option>
@@ -134,34 +138,53 @@
         <!-- Text -->
         <div id="sections"></div>
         <!-- Inputs -->
-        <div class="form-group">
-          <label for="sectionText">Enter section text here: </label>
-          <textarea class="form-control" id="sectionText" rows="3"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" id="submitText">Submit</button>
-      </div>
-
-      <!-- HiGlass -->
-      <div id="media"> 
-
-        <label class="mr-sm-2" for="selDisplay">Display: </label>
+        <div id="sectionOptions">
           <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selDisplay">
-            <option value="choose" selected>Choose...</option>
-            <option value="hg">HiGlass</option>
+            <option value="choose" selected>Select...</option>
+            <option value="text">Text</option>
+            <option value="hg">HiGlass View</option>
             <option value="img">Image</option>
             <option value="vid">Video</option>
           </select>
-        <input type="url" class="url-type-styled-input" id="urlText" disabled>
-        <button type="submit" class="btn btn-primary" id="submitUrl">Submit</button>
 
-        <div style="margin: auto; width: 50%;">
-          <div id="development-demo">
+          <div id="textOptions">
+            <div class="form-group">
+              <textarea class="form-control" id="sectionText" rows="3" placeholder="Enter section text"></textarea>
+            </div>
           </div>
-          <div id="img"></div>
-          <iframe id='vid' width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+          <div id="imgOptions">
+            <label class="radio-inline"><input type="radio" name="selImgPos" id="selImgInline" checked>Inline</label>
+            <label class="radio-inline"><input type="radio" name="selImgPos" id="selImgMain">Main View</label>
+            <input type="url" class="url-type-styled-input" id="imgUrl">
+          </div>
+
+          <div id="vidOptions">
+            <label class="radio-inline"><input type="radio" name="selVidPos" id="selVidInline"checked>Inline</label>
+            <label class="radio-inline"><input type="radio" name="selVidPos" id="selVidMain">Main View</label>
+            <div>
+              <label>https://www.youtube.com/embed/</label>
+              <input type="text" id="vidUrl">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success" id="submit">Submit</button>
         </div>
 
       </div>
+
+      <!-- Media -->
+      <div id="media"> 
+        <!--
+          <div id="placeholder">
+            <h1 id="placeholderText">Placeholder</h1>
+          </div> 
+        -->
+          <div id="development-demo"> <!-- HiGlass -->
+          </div>
+          <div id="img"></div> <!-- Image -->
+          <iframe id='vid' width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> <!-- Video -->
+        </div>
 
     </div>
   </div>
@@ -172,7 +195,6 @@
 <!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
 <script src="/third_party/scroller.js"></script>
 <script src="/third_party/scrollerAddOns.js"></script>
-
 <script src="src/editCSS.js"></script> 
 <script src="src/multimedia.js"></script> 
 <script src="src/scrollUp.js"></script>

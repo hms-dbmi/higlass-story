@@ -1,7 +1,7 @@
 import createHgComponent from 'higlass';
 
 window.globalVars = {}; //global Vars: createHg, hgv, viewConfUrls, typeOfChange, prevViewConf, loadViewConf
-													// json, allowExport, img
+													// json, allowExport
 
 globalVars.createHg = createHgComponent;
 
@@ -11,7 +11,7 @@ globalVars.json = {
 	fontFamily: "Helvetica Neue",
 	fontColor: "black",
 	fontSize: 22,
-	bgColor: "white",
+	bgColor: "#f9f9f9",
 	textSections: [],
 	mediaSections: []
 }
