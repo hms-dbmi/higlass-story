@@ -1,7 +1,7 @@
 import createHgComponent from 'higlass';
 
 window.globalVars = {}; //global Vars: createHg, hgv, viewConfUrls, typeOfChange, prevViewConf, loadViewConf
-													// json, allowExport, addImg, addVid, addFig, addHg
+													// json, allowExport, addImg, addVid, addFig, addHg, addYt
 
 globalVars.createHg = createHgComponent;
 

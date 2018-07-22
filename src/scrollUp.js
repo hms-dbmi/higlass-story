@@ -32,6 +32,11 @@ globalVars.reverse = function(json) {
       reverseFunctions[thisMedia.startPos] = function() {
         globalVars.addVid(vidParams);
       };
+    } else if (thisMedia.activate === "yt") {
+      let ytParams = thisMedia.activateParams;
+      reverseFunctions[thisMedia.startPos] = function() {
+        globalVars.addYt(ytParams);
+      };
     } else if (thisMedia.activate === "fig") {
       let figParams = thisMedia.activateParams;
       reverseFunctions[thisMedia.startPos] = function() {
@@ -44,7 +49,7 @@ globalVars.reverse = function(json) {
     }
   }
 
-  for(var i=0; i<mediaArr.length; i++) { // assign img, hg, fig, or vid loading function to section before next media
+  for(var i=0; i<mediaArr.length; i++) { // assign img, hg, fig, yt, or vid loading function to section before next media
     var thisMedia = mediaArr[i];
     if(thisMedia.activate === "img") {
       for(var j=thisMedia.startPos+1; j<json.textSections.length; j++) {
@@ -62,6 +67,16 @@ globalVars.reverse = function(json) {
           let vidParams = thisMedia.activateParams;
           reverseFunctions[j-1] = function() {
             globalVars.addVid(vidParams);
+          }
+          break;
+        }
+      }
+    } else if(thisMedia.activate === "yt") {
+      for(var j=thisMedia.startPos+1; j<json.textSections.length; j++) {
+        if(!isEmpty(reverseFunctions[j])) {
+          let ytParams = thisMedia.activateParams;
+          reverseFunctions[j-1] = function() {
+            globalVars.addYt(ytParams);
           }
           break;
         }
@@ -95,7 +110,7 @@ globalVars.reverse = function(json) {
 		// ZOOM
 		if(mediaArr[i].activate === "zoom") { // find index of every zoom that is not preceded by another zoom before it is preceded by a reload
 			for(var j=i+1; j<mediaArr.length; j++) { // for every zoom, zoom at that spot or last "none" if there are any 
-				if(mediaArr[j].activate == "zoom" || mediaArr[j].activate == "reload" || mediaArr[j].activate == "img" || mediaArr[j].activate == "vid" || mediaArr[j].activate == "fig") { 
+				if(mediaArr[j].activate == "zoom" || mediaArr[j].activate == "reload" || mediaArr[j].activate == "img" || mediaArr[j].activate == "vid" || mediaArr[j].activate == "yt" || mediaArr[j].activate == "fig") { 
 					let zoomParams = mediaArr[i].activateParams;
 					reverseFunctions[mediaArr[j].startPos-1] = function() {
 						globalVars.addHg();

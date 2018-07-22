@@ -28,8 +28,7 @@
 -->
 
 <!-- In this commit: 
-* dragging and dropping to re-order sections (other effects not yet implemented)
-* add images with captions inline and to main view
+* added support for html videos
 -->
 
 <html class="no-js" lang="en">
@@ -152,6 +151,7 @@
             <option value="text">Text</option>
             <option value="hg">HiGlass View</option>
             <option value="img">Image</option>
+            <option value="yt">Youtube Video</option>
             <option value="vid">Video</option>
             <option value="fig">Image with Caption</option>
           </select>
@@ -168,11 +168,19 @@
             <input type="url" class="url-type-styled-input" id="imgUrl">
           </div>
 
+          <div id="ytOptions">
+            <label class="radio-inline"><input type="radio" name="selYtPos" id="selYtInline"checked>Inline</label>
+            <label class="radio-inline"><input type="radio" name="selYtPos" id="selYtMain">Main View</label>
+            <div>
+              <label>https://www.youtube.com/embed/</label>
+              <input type="text" id="ytUrl">
+            </div>
+          </div>
+
           <div id="vidOptions">
             <label class="radio-inline"><input type="radio" name="selVidPos" id="selVidInline"checked>Inline</label>
             <label class="radio-inline"><input type="radio" name="selVidPos" id="selVidMain">Main View</label>
             <div>
-              <label>https://www.youtube.com/embed/</label>
               <input type="text" id="vidUrl">
             </div>
           </div>
@@ -201,8 +209,9 @@
           <div id="development-demo"> <!-- HiGlass -->
           </div>
           <div id="img"></div> <!-- Image -->
-          <iframe id='vid' width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> <!-- Video -->
+          <iframe id='yt' width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> <!-- Video -->
           <div id="fig"></div>
+          <video id='vid' width="560" height="315" autoplay type="video/mp4"></video>
         </div>
 
     </div>

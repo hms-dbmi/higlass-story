@@ -9,17 +9,17 @@
   padding:5%
 }
 
-#textOptions, #imgOptions, #vidOptions, #figOptions {
+#textOptions, #imgOptions, #vidOptions, #figOptions, #ytOptions {
   display:none; 
   padding-top:3%
 }
 
-#vidUrl {
+#ytUrl {
   width:30%; 
   border-radius: 10px
 }
 
-#imgUrl, #figUrl {
+#imgUrl, #figUrl, #vidUrl {
   display:block; 
   width:70%; border-radius: 10px;
   margin-top:2%;
@@ -84,7 +84,7 @@ input[type="url"]:focus {
   display:none;
 }
 
-#img, #vid, #fig {
+#img, #vid, #fig, #yt {
   display:none;
 }
 
