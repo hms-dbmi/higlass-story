@@ -35,21 +35,21 @@ function scrollerDisplay(container, stepClass, activateFunctions, reverseFunctio
 
 }
   
-  // detect whether user is scrolling up or scrolling down
-  var lastScrollTop = 0;
-  var isScrollUp = false;
-  $(window).scroll(function(event){
-     var scrollTop = $(this).scrollTop();
-     if (scrollTop > lastScrollTop){
-         isScrollUp = false;
-     }
-     else if(scrollTop == lastScrollTop)
-     {
-       //do nothing 
-       //In IE this is an important condition because there seems to be some instances where the last scrollTop is equal to the new one
-     }
-     else {
-        isScrollUp = true;
-     }
-     lastScrollTop = scrollTop;
-  });
+// detect whether user is scrolling up or scrolling down
+var lastScrollTop = 0;
+var isScrollUp = false;
+$(window).scroll(function(event){
+   var scrollTop = $(this).scrollTop();
+   if (scrollTop > lastScrollTop){
+       isScrollUp = false;
+   }
+   else if(scrollTop == lastScrollTop)
+   {
+     //do nothing 
+     //In IE this is an important condition because there seems to be some instances where the last scrollTop is equal to the new one
+   }
+   else {
+      isScrollUp = true;
+   }
+   lastScrollTop = scrollTop;
+});
