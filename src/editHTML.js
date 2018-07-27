@@ -1,9 +1,61 @@
 $(document).ready(function (){ 
 
+  ////
+  $(function () {
+    var startPos = 0;
+    var endPos = 0;
+    $("#sections").sortable({
+      onDrop: function  ($item, container, _super) {
+        $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+        $("body").removeClass(container.group.options.bodyClass);
+        endDrag = $item.index();
+        sort(startDrag, endDrag);
+      },
+      onDragStart: function ($item, container, _super, event) {
+        $item.css({
+          height: $item.outerHeight(),
+          width: $item.outerWidth()
+        })
+        $item.addClass(container.group.options.draggedClass);
+        $("body").addClass(container.group.options.bodyClass);
+        startDrag = $item.index();
+      },
+    });
+  });
+
+  var sort = function(startDrag, endDrag) { ////
+    if(startDrag !== endDrag) {
+      tempSections = [];
+      for(var i=0; i<globalVars.json.textSections.length; i++) {
+        if(i === endDrag) {
+          if(i < startDrag) {
+            tempSections.push(globalVars.json.textSections[startDrag]);
+            tempSections.push(globalVars.json.textSections[i]);
+          } else {
+            tempSections.push(globalVars.json.textSections[i]);
+            tempSections.push(globalVars.json.textSections[startDrag]);
+          }
+        } else {
+          if(i !== startDrag) {
+            tempSections.push(globalVars.json.textSections[i]);
+          }
+        }
+      }
+      globalVars.json.textSections = tempSections;
+
+      var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
+      a.href = 'data:' + data;
+      a.download = 'data.json';
+      a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
+      download.style.display = 'block';
+    }
+  }
+
   // initialize link
 	var a = document.createElement('a');
+  a.className = "btn btn-info";
 	a.id = "downloadLink";
-	var container = document.getElementById('scrollingText');
+	var container = document.getElementById('download');
 	container.appendChild(a);
 
 	var activateFunctions = [];
@@ -15,13 +67,15 @@ $(document).ready(function (){
     document.getElementById('vidOptions').style.display = 'none';
     document.getElementById('ytOptions').style.display = 'none';
     document.getElementById('textOptions').style.display = 'none';
-    document.getElementById('figOptions').style.display = 'none';
     document.getElementById('imgUrl').value = '';
     document.getElementById('ytUrl').value = '';
     document.getElementById('vidUrl').value = '';
-    document.getElementById('figUrl').value = '';
     document.getElementById('sectionText').value = '';
+    document.getElementById('vidText').value = '';
+    document.getElementById('imgText').value = '';
+    document.getElementById('ytText').value = '';
     document.getElementById('submit').style.display = 'none';
+    document.getElementById('cancel').style.display = 'none';
     $("#selDisplay").val('choose').change();
 	}
 
@@ -29,6 +83,10 @@ $(document).ready(function (){
 		var numSections = sections.querySelectorAll('.step').length;
 		return numSections;
 	}
+
+  $("#scrollingText").on('click', '#cancel', function() {
+    selReset();
+  });
 
   // Add to report
 	$("#scrollingText").on('click', '#submit', function() {
@@ -41,40 +99,50 @@ $(document).ready(function (){
 	  	$( "#imgUrl" ).submit();
 	  } else if($('#selDisplay').val()==='vid') {
 	  	$( "#vidUrl" ).submit();
-	  } else if($('#selDisplay').val()==='fig') {
-      $( "#figUrl" ).submit();
-    } else if($('#selDisplay').val()==='yt') {
+	  } else if($('#selDisplay').val()==='yt') {
       $( "#ytUrl" ).submit();
     } 
 	  selReset();
-    ////console.log(reverseFunctions) ////
-    ////console.log(activateFunctions) //// 
-
-    // var dragSection = document.querySelectorAll('#dragAndDrop section'); // drag and drop sections
-    // [].forEach.call(dragSection, addDnDHandlers); 
 	});
 
   // TEXT
 	$("#scrollingText").on('submit', '#sectionText', function( event ) {
-    if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-      sections.lastElementChild.innerHTML = mmd(sectionText.value) + sections.lastElementChild.innerHTML;
-    } else { // create new section of content
-      activateFunctions.push( function() {});
-      sections.innerHTML += "<section draggable='true' class='step'>" + mmd(sectionText.value) + "</section>"; 
+    const textParams = mmd(sectionText.value);
+    if($('input[id=selTextMain]').is(":checked")) {
+      globalVars.addText(textParams);
+      activateFunctions[getNumSections()] = function() {
+        globalVars.addText(textParams);
+      };
+      var textObj = {
+        "activate": "text",
+        "activateParams": textParams,
+        "startPos": getNumSections(),
+      }
+      sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Fast_text.png/330px-Fast_text.png'></section></li>"; 
+      globalVars.json.mediaSections.push(textObj);
+    } else {
+      if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
+        sections.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText'>" + textParams + "</div>" + sections.lastElementChild.lastElementChild.innerHTML;
+      } else { // create new section of content
+        activateFunctions.push( function() {});
+        sections.innerHTML += "<li><section class='step'><div class='inlineText'>" + textParams + "</div></section></li>"; 
+      }
+      globalVars.json.textSections.push(textParams);
     }
-	  globalVars.json.textSections.push(mmd(sectionText.value));
+
 	  var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
 		a.href = 'data:' + data;
 		a.download = 'data.json';
-		a.innerHTML = 'Download JSON';
+		a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
+    download.style.display = 'block';
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
 	});
 
   // IMAGE
 	$("#scrollingText").on('submit', '#imgUrl', function( event ) {
+    const imgParams = [imgUrl.value, mmd(imgText.value)];
 		if($('input[id=selImgMain]').is(":checked")) {
-			const imgParams = imgUrl.value;
 			globalVars.addImg(imgParams);
 			activateFunctions[getNumSections()] = function() {
 				globalVars.addImg(imgParams);
@@ -84,30 +152,32 @@ $(document).ready(function (){
 				"activateParams": imgParams,
 				"startPos": getNumSections(),
 			};
-      sections.innerHTML += "<section draggable='true' class=\"step\"><img class='thumbnail' src=\"" + imgUrl.value + "\"></section>"; 
+      sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src=\"" + imgUrl.value + "\"></section></li>"; 
 			globalVars.json.mediaSections.push(imgObj);
 		} else {
-			var imgHTML = "<img src=\"" + imgUrl.value + "\">";
+			var imgHTML = "<img class='inlineImg' src=\"" + imgUrl.value + "\">" + "<div class='caption'>" + imgParams[1] + "</div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.innerHTML = imgHTML + sections.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.innerHTML = imgHTML + sections.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
         activateFunctions.push( function() {});
-        sections.innerHTML += "<section draggable='true' class=\"step\">" + imgHTML + "</section>"; 
+        sections.innerHTML += "<li><section class=\"step\">" + imgHTML + "</section></li>"; 
       }
 		  globalVars.json.textSections.push(imgHTML);
 		}
 	  var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
 		a.href = 'data:' + data;
 		a.download = 'data.json';
-		a.innerHTML = 'Download JSON';
+		a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
+    download.style.display = 'block';
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
+    document.getElementById('imgText').value = '';
 	});
 
   // YOUTUBE VIDEO
 	$("#scrollingText").on('submit', '#ytUrl', function( event ) {
+    const ytParams = [ytUrl.value, mmd(ytText.value)];
 		if($('input[id=selYtMain]').is(":checked")) {
-			const ytParams = ytUrl.value;
 			globalVars.addYt(ytParams);
 			activateFunctions[getNumSections()] = function() {
 				globalVars.addYt(ytParams);
@@ -117,31 +187,33 @@ $(document).ready(function (){
 						"activateParams": ytParams,
 						"startPos": getNumSections(),
 			};
-      sections.innerHTML += "<section draggable='true' class=\"step\"><img class='thumbnail' src='https://img.youtube.com/vi/" + vidUrl.value + "/default.jpg'></section>"; 
+      sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src='https://img.youtube.com/vi/" + ytUrl.value + "/default.jpg'></section></li>"; 
 			globalVars.json.mediaSections.push(ytObj);
 		} else {
-			var ytHTML = "<iframe width='560' height='315' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen src='https://www.youtube.com/embed/" 
-				+ ytUrl.value + "'></iframe>"
+			var ytHTML = "<iframe class='inlineYt' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen src='https://www.youtube.com/embed/" 
+				+ ytUrl.value + "'></iframe>" + "<div class='caption'>" + ytParams[1] + "</div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.innerHTML = ytHTML + sections.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.innerHTML = ytHTML + sections.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
         activateFunctions.push( function() {});
-        sections.innerHTML += "<section draggable='true' class=\"step\">" + ytHTML + "</section>"; 
+        sections.innerHTML += "<li><section class=\"step\">" + ytHTML + "</section></li>"; 
       }
 		  globalVars.json.textSections.push(ytHTML);
 		}
 	  var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
 		a.href = 'data:' + data;
 		a.download = 'data.json';
-		a.innerHTML = 'Download JSON';
+		a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
+    download.style.display = 'block';
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
+    document.getElementById('ytText').value = '';
 	});
 
   // VIDEO
   $("#scrollingText").on('submit', '#vidUrl', function( event ) {
+    const vidParams = [vidUrl.value, mmd(vidText.value)];
     if($('input[id=selVidMain]').is(":checked")) {
-      const vidParams = vidUrl.value;
       globalVars.addVid(vidParams);
       activateFunctions[getNumSections()] = function() {
         globalVars.addVid(vidParams);
@@ -151,65 +223,32 @@ $(document).ready(function (){
             "activateParams": vidParams,
             "startPos": getNumSections(),
       };
-      sections.innerHTML += "<section draggable='true' class=\"step\"><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Video_-_The_Noun_Project.svg/512px-Video_-_The_Noun_Project.svg.png'></section>"; 
+      sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Video_-_The_Noun_Project.svg/512px-Video_-_The_Noun_Project.svg.png'></section></li>"; 
       globalVars.json.mediaSections.push(vidObj);
     } else {
-      var vidHTML = "<video width='560' height='315' autoplay src='" + vidUrl.value + "' type='video/mp4'></video>"
+      var vidHTML = "<video class='inlineVid' width='560' height='315' autoplay src='" + vidUrl.value + "' type='video/mp4'></video>" + "<div class='caption'>" + vidParams[1] + "</div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.innerHTML = vidHTML + sections.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.innerHTML = vidHTML + sections.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
         activateFunctions.push( function() {});
-        sections.innerHTML += "<section draggable='true' class=\"step\">" + vidHTML + "</section>"; 
+        sections.innerHTML += "<li><section class=\"step\">" + vidHTML + "</section></li>"; 
       }
       globalVars.json.textSections.push(vidHTML);
     }
     var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
     a.href = 'data:' + data;
     a.download = 'data.json';
-    a.innerHTML = 'Download JSON';
+    a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
+    download.style.display = 'block';
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
+    document.getElementById('vidText').value = '';
   });
-
-  // FIGURE
-  $("#scrollingText").on('submit', '#figUrl', function( event ) {
-    const figParams = [figUrl.value, mmd(figText.value)];
-    if($('input[id=selFigMain]').is(":checked")) {
-      globalVars.addFig(figParams);
-      activateFunctions[getNumSections()] = function() {
-        globalVars.addFig(figParams);
-      };
-      var figObj = {
-        "activate": "fig",
-        "activateParams": figParams,
-        "startPos": getNumSections(),
-      };
-      sections.innerHTML += "<section draggable='true' class=\"step\"><img class='thumbnail' src=\"" + figParams[0] + "\"></section>"; 
-      globalVars.json.mediaSections.push(figObj);
-    } else {
-      var figHTML = "<img src=\"" + figParams[0] + "\">" + figParams[1];
-      if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.innerHTML = figHTML + sections.lastElementChild.innerHTML;
-      } else { // create new section of content
-        activateFunctions.push( function() {});
-        sections.innerHTML += "<section draggable='true' class=\"step\">" + figHTML + "</section>"; 
-      }
-      globalVars.json.textSections.push(figHTML);
-    }
-    var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
-    a.href = 'data:' + data;
-    a.download = 'data.json';
-    a.innerHTML = 'Download JSON';
-    reverseFunctions = globalVars.reverse(globalVars.json);
-    scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
-    document.getElementById('figText').value = '';
-  });
-
 
   // HIGLASS
   var getHg = function() {
     const thisViewConf = globalVars.hgv.exportAsViewConfString();
-    sections.innerHTML += "<section draggable='true' class=\"step\"><img class='thumbnail' src='" + globalVars.hgv.getDataURI() +"'></section>" //// debug: currently blank image
+    sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src='" + globalVars.hgv.getDataURI() +"'></section></li>" //// debug: currently blank image
     globalVars.hgv.shareViewConfigAsLink("http://higlass.io/api/v1/viewconfs")
       .then((sharedViewConfig) => {
         globalVars.viewConfUrls.push("http://higlass.io/api/v1/viewconfs/?d=" + sharedViewConfig.id);
@@ -245,6 +284,7 @@ $(document).ready(function (){
           }
         } else {
           const url = globalVars.viewConfUrls[0];
+          globalVars.json.initialHg = url;
           var initialViewConf = JSON.parse(thisViewConf);
           activateFunctions[getNumSections()-1] = function() {
             globalVars.addHg();
@@ -262,61 +302,63 @@ $(document).ready(function (){
           }
           globalVars.json.mediaSections.push(hgObj);
         }
-        ////sections.innerHTML += "<section draggable='true' class=\"step\">" + mmd("content") +"</section>";
         globalVars.prevViewConf = thisViewConf;
         var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
         a.href = 'data:' + data;
         a.download = 'data.json';
-        a.innerHTML = 'Download JSON';   
+        a.innerHTML = '<i class="fas fa-download"></i>Download JSON';  
+        download.style.display = 'block';
         reverseFunctions = globalVars.reverse(globalVars.json);
         scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions   
       })
       .catch((err) => { console.error('Something did not work. Sorry', err); });
   }
 
-	globalVars.addImg = function(url) {
-    document.getElementById('fig').style.display = 'none';
-		document.getElementById('img').style.display = 'block';
-		document.getElementById('development-demo').style.display = 'none';
-		document.getElementById('vid').style.display = 'none';
-    document.getElementById('yt').style.display = 'none';
-		img.innerHTML = "<img src=\"" + url + "\">";
-	}
-
-  globalVars.addYt = function(id) {
-    document.getElementById('fig').style.display = 'none';
+  globalVars.addText = function(md) {
+    document.getElementById('text').style.display = 'block';
     document.getElementById('img').style.display = 'none';
-    document.getElementById('development-demo').style.display = 'none';
-    document.getElementById('vid').style.display = 'none';
-    document.getElementById('yt').style.display = 'block';
-    var url = 'https://www.youtube.com/embed/' + id;
+    document.getElementById('hg').style.display = 'none';
+    document.getElementById('vidMedia').style.display = 'none';
+    document.getElementById('ytMedia').style.display = 'none';
+    text.innerHTML = "<div class='mainText'>" + md + "</div>";
+  }
+
+  globalVars.addImg = function(arr) {
+    document.getElementById('text').style.display = 'none';
+    document.getElementById('img').style.display = 'block';
+    document.getElementById('hg').style.display = 'none';
+    document.getElementById('vidMedia').style.display = 'none';
+    document.getElementById('ytMedia').style.display = 'none';
+    img.innerHTML = "<img class='mainImg' src=\"" + arr[0] + "\">" + "<div class='caption'>" + arr[1] + "</div>";
+  }
+
+  globalVars.addYt = function(arr) {
+    document.getElementById('text').style.display = 'none';
+    document.getElementById('img').style.display = 'none';
+    document.getElementById('hg').style.display = 'none';
+    document.getElementById('vidMedia').style.display = 'none';
+    document.getElementById('ytMedia').style.display = 'block';
+    var url = 'https://www.youtube.com/embed/' + arr[0];
     $('#yt').attr('src',url);
+    ytCaption.innerHTML = arr[1];
   }
 
-	globalVars.addVid = function(url) {
-    document.getElementById('fig').style.display = 'none';
-		document.getElementById('img').style.display = 'none';
-		document.getElementById('development-demo').style.display = 'none';
-		document.getElementById('vid').style.display = 'block';
-    document.getElementById('yt').style.display = 'none';
-		$('#vid').attr('src',url);
-	}
-
-  globalVars.addFig = function(arr) {
-    document.getElementById('fig').style.display = 'block';
+  globalVars.addVid = function(arr) {
+    document.getElementById('text').style.display = 'none';
     document.getElementById('img').style.display = 'none';
-    document.getElementById('development-demo').style.display = 'none';
-    document.getElementById('vid').style.display = 'none';
-    document.getElementById('yt').style.display = 'none';
-    fig.innerHTML = "<img src=\"" + arr[0] + "\">" + arr[1];
+    document.getElementById('hg').style.display = 'none';
+    document.getElementById('vidMedia').style.display = 'block';
+    document.getElementById('ytMedia').style.display = 'none';
+    $('#vid').attr('src',arr[0]);
+    vidCaption.innerHTML = arr[1];
   }
 
-	globalVars.addHg = function() {
-    document.getElementById('fig').style.display = 'none';
-		document.getElementById('img').style.display = 'none';
-		document.getElementById('development-demo').style.display = 'inline-block';
-		document.getElementById('vid').style.display = 'none';
-    document.getElementById('yt').style.display = 'none';
+  globalVars.addHg = function() {
+    document.getElementById('text').style.display = 'none';
+    document.getElementById('img').style.display = 'none';
+    document.getElementById('hg').style.display = 'inline-block';
+    document.getElementById('vidMedia').style.display = 'none';
+    document.getElementById('ytMedia').style.display = 'none';
   }
 
 });

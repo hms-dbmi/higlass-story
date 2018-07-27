@@ -8,6 +8,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "higlass": "^1.0.1",
+    "jquery-sortable": "^0.9.13",
     "odiff": "^1.1.0"
   },
   "devDependencies": {

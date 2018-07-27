@@ -6,9 +6,7 @@
   * fade in/out
 * allow focus on just text or just HG (remember aspect ratio)
 * css: more space b/w sections
-* image preview next to text
 * change method of implementing closure within loops for src/scrollUp.js
-* fix bug: can't drag element to bottom
 * sort arrays after dragging
 -->
 
@@ -19,16 +17,27 @@
 * prompt user to enter next text/media with arrows
 * protect user from adding in wrong order
 * specify image size
-* add non-youtube videos
-* fix bug: enable dropping section at last place
+* tooltips
+  * esp for CSS to expose IDs and classes
 -->
 
 <!-- TODO before next commit: (////)
-* 
 -->
 
 <!-- In this commit: 
-* added support for html videos
+* add stylesheet as text
+* add "reset CSS" button to clear all custom styles
+* added back initialHg in json
+* added src/scrollDown.js file to populate activateFunctions all at once from json
+  * could be useful in future when editing and re-ordering sections
+* img/yt/vid media should all have caption options
+* cancel button on input box to clear inputs
+* change look of download link
+* fix inline and media image size
+* center captions
+* change inline section text font without changing other text
+* add text as main
+* assign labels to inputs to make everything more clear
 -->
 
 <html class="no-js" lang="en">
@@ -50,6 +59,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.31.0/react-bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="./third_party/mmd.min.js"></script>
   <script src="./third_party/odiff.umd.js"></script>
@@ -82,6 +92,7 @@
           <div class="form-group">
             <label for="selFont">Choose font: </label>
             <select class="form-control" id="selFont">
+              <option value="" selected>Default</option> 
               <option>Helvetica Neue</option>
               <option>Tahoma</option>
               <option>Sans-Serif</option>
@@ -93,11 +104,12 @@
           <div class="form-group">
             <label for="selFontColor">Choose font color: </label>
             <select class="form-control" id="selFontColor">
-              <option>black</option>
-              <option>red</option>
-              <option>blue</option>
-              <option>green</option>
-              <option>white</option>
+              <option value="" selected>Default</option>
+              <option value="black">Black</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+              <option value="white">White</option>
             </select>
           </div>
 
@@ -111,18 +123,25 @@
           <div class="form-group">
             <label for="selBgColor">Choose background color: </label>
             <select class="form-control" id="selBgColor">
-              <option value="#f9f9f9">off-white</option>
-              <option>white</option>
-              <option>black</option>
-              <option>blue</option>
-              <option>green</option>
-              <option>brown</option>
+              <option value="" selected>Default</option>
+              <option value="#f9f9f9">Off-White</option>
+              <option value="white">White</option>
+              <option value="black">Black</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+              <option value="brown">Brown</option>
             </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cssText">Input your own stylesheet: </label>
+            <textarea class="form-control" id="cssText" rows="5" placeholder="Input stylesheet"></textarea>
           </div>
 
         </div>
 
         <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="removeCSS">Reset CSS</button>
           <button type="submit" class="btn btn-primary" id="submitCSS">Apply Changes</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
@@ -140,79 +159,100 @@
       <div id="scrollingText"> 
         <!-- Text -->
         <div id="dragAndDrop">
-          <div id="sections">
-          </div>
-          <section class="buffer" draggable="false"><p style="visibility:hidden">Buffer space for drag and drop</p></section>
+          <ul id="sections">
+          </ul>
         </div>
         <!-- Inputs -->
         <div id="sectionOptions">
+          <h3>Add Story Element</h3>
+          <label for="selDisplay">What do you want to add?</label>
           <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selDisplay">
             <option value="choose" selected>Select...</option>
-            <option value="text">Text</option>
-            <option value="hg">HiGlass View</option>
-            <option value="img">Image</option>
-            <option value="yt">Youtube Video</option>
-            <option value="vid">Video</option>
-            <option value="fig">Image with Caption</option>
+            <optgroup label="Either section or media view">
+              <option value="text">Text</option>
+              <option value="img">Image</option>
+              <option value="yt">Youtube Video</option>
+              <option value="vid">Video</option>
+            </optgroup>
+            <optgroup label="Only media view">
+              <option value="hg">HiGlass View</option>
+            </optgroup>
           </select>
 
           <div id="textOptions">
+            <label>Where do you want it to go?</label>
+            <label class="radio-inline"><input type="radio" name="selTextPos" id="selTextInline" checked>Inline</label>
+            <label class="radio-inline"><input type="radio" name="selTextPos" id="selTextMain">Main View</label>
             <div class="form-group">
               <textarea class="form-control" id="sectionText" rows="3" placeholder="Enter section text"></textarea>
             </div>
           </div>
 
           <div id="imgOptions">
+            <label>Where do you want it to go?</label>
             <label class="radio-inline"><input type="radio" name="selImgPos" id="selImgInline" checked>Inline</label>
             <label class="radio-inline"><input type="radio" name="selImgPos" id="selImgMain">Main View</label>
-            <input type="url" class="url-type-styled-input" id="imgUrl">
+            <input type="url" class="url-type-styled-input" id="imgUrl" placeholder="Enter image URL">
+            <div class="form-group">
+              <textarea class="form-control" id="imgText" rows="3" placeholder="Enter a caption for your image (optional)"></textarea>
+            </div>
           </div>
 
           <div id="ytOptions">
+            <label>Where do you want it to go?</label>
             <label class="radio-inline"><input type="radio" name="selYtPos" id="selYtInline"checked>Inline</label>
             <label class="radio-inline"><input type="radio" name="selYtPos" id="selYtMain">Main View</label>
             <div>
               <label>https://www.youtube.com/embed/</label>
-              <input type="text" id="ytUrl">
+              <input type="text" id="ytUrl" placeholder="Enter video ID">
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" id="ytText" rows="3" placeholder="Enter a caption for your Youtube video (optional)"></textarea>
             </div>
           </div>
 
           <div id="vidOptions">
+            <label>Where do you want it to go?</label>
             <label class="radio-inline"><input type="radio" name="selVidPos" id="selVidInline"checked>Inline</label>
             <label class="radio-inline"><input type="radio" name="selVidPos" id="selVidMain">Main View</label>
             <div>
-              <input type="text" id="vidUrl">
+              <input type="text" id="vidUrl" placeholder="Enter video URL">
             </div>
-          </div>
-
-          <div id="figOptions">
-            <label class="radio-inline"><input type="radio" name="selFigPos" id="selFigInline" checked>Inline</label>
-            <label class="radio-inline"><input type="radio" name="selFigPos" id="selFigMain">Main View</label>
-            <input type="url" class="url-type-styled-input" id="figUrl">
             <div class="form-group">
-              <textarea class="form-control" id="figText" rows="3" placeholder="Enter figure text"></textarea>
+              <textarea class="form-control" id="vidText" rows="3" placeholder="Enter a caption for your video (optional)"></textarea>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-success" id="submit">Submit</button>
+          <button type="submit" class="btn btn-danger" id="cancel">Cancel</button>
+          <button type="submit" class="btn btn-success" id="submit">Add</button>
+
         </div>
+
+        <div id="download">
+            <label>Done editing your report? Click to download your report as a JSON file:</label>
+          </div>
 
       </div>
 
       <!-- Media -->
       <div id="media"> 
-        <!--
-          <div id="placeholder">
-            <h1 id="placeholderText">Placeholder</h1>
-          </div> 
-        -->
-          <div id="development-demo"> <!-- HiGlass -->
-          </div>
-          <div id="img"></div> <!-- Image -->
-          <iframe id='yt' width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> <!-- Video -->
-          <div id="fig"></div>
+      
+        <div id="placeholder">
+          <h1 id="placeholderText">Use the input box on the left to place some media here</h1>
+        </div> 
+      
+        <div id="hg"></div> <!-- HiGlass -->
+        <div id="text"></div>
+        <div id="img"></div> <!-- Image -->
+        <div id="ytMedia"> <!-- Youtube Video -->
+          <iframe id='yt' width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <div id="ytCaption" class='caption'></div>
+        </div> 
+        <div id="vidMedia"> <!-- Video -->
           <video id='vid' width="560" height="315" autoplay type="video/mp4"></video>
+          <div id="vidCaption" class='caption'></div>
         </div>
+      </div>
 
     </div>
   </div>
@@ -221,12 +261,13 @@
 
 
 <!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
-<script src="src/dragAndDrop.js"></script> 
+<script src="third_party/jquery-sortable.js"></script>
 <script src="/third_party/scroller.js"></script>
 <script src="/third_party/scrollerAddOns.js"></script>
 <script src="src/editCSS.js"></script> 
 <script src="src/multimedia.js"></script> 
 <script src="src/scrollUp.js"></script>
+<script src="src/scrollDown.js"></script>
 <script src="/third_party/scrollerDisplay.js"></script>
 <script src="src/compareViewConfs.js"></script>
 <script src="src/editHTML.js"></script>
