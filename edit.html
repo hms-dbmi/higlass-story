@@ -7,8 +7,19 @@
   <meta name="viewport" content="width=500" />
   <title>Edit Story</title>
 
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/higlass@1.0.1/dist/styles/hglib.css" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./src/css/style.css"> 
+  <link rel="stylesheet" type="text/css" href="./src/css/inputStyle.css"> 
+  <link rel="stylesheet" href="./node_modules/higlass/app/styles/page.css">
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.2/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/15.6.2/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.31.0/react-bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   <!-- Font Awesome JS -->
@@ -16,11 +27,57 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
   <script src="./dist/edit.js"></script>
-
 </head>
 
 <body>
+
   <a href="./index.html"><i class="fas fa-home fa-3x"></i></a>
+
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-sm" id="inputJSON">Load report</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="jsonModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Load report</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="jsonText">Input the contents of the report's JSON file: </label>
+            <textarea class="form-control" id="jsonText" rows="10" placeholder="Input report"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="submitJSON">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+
 </body>
+
+<script src="./src/edit/jsonModal.js"></script>
+<script src="./third_party/jquery-sortable.js"></script>
+<script src="./third_party/scroller.js"></script>
+<script src="./third_party/scrollerAddOns.js"></script>
+<script src="./src/create/editCSS.js"></script> <!-- -->
+<script src="./src/create/multimedia.js"></script> <!-- -->
+<script src="./src/scrollUp.js"></script>
+<script src="./src/scrollDown.js"></script>
+<script src="./third_party/scrollerDisplay.js"></script>
+<script src="./src/create/compareViewConfs.js"></script> <!-- -->
+<script src="./src/create/editHTML.js"></script> <!-- -->
+<script src="./src/loadHg.js"></script> <!-- -->
+
+<src
 
 </html>

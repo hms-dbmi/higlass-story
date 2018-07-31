@@ -60,4 +60,9 @@ function setViewConfAndZoom(response, loadZoomParams) {
   });
 }
 
-loadHg(globalVars.details.initialHg);
+// initialize first view
+if (window.location.pathname.split("/").pop()==='create.html') {
+  loadHg('http://higlass.io/api/v1/viewconfs/?d=WV2nvPIJScK1zpZGf5lO6A');
+} else if (window.location.pathname.split("/").pop()==='view.html') {
+  loadHg(globalVars.details.initialHg);
+}

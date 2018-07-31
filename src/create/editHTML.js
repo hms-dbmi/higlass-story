@@ -46,9 +46,9 @@ $(document).ready(function (){
 
       var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
       a.href = 'data:' + data;
-      a.download = 'data.json';
-      a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
-      download.style.display = 'block';
+      a.downloadDiv = 'data.json';
+      a.innerHTML = '<i class="fas fa-download"></i> Download JSON';
+      downloadDiv.style.display = 'block';
     }
   }
 
@@ -56,7 +56,7 @@ $(document).ready(function (){
 	var a = document.createElement('a');
   a.className = "btn btn-info";
 	a.id = "downloadLink";
-	var container = document.getElementById('download');
+	var container = document.getElementById('downloadDiv');
 	container.appendChild(a);
 
 	var activateFunctions = [];
@@ -133,14 +133,14 @@ $(document).ready(function (){
         "activateParams": textParams,
         "startPos": getNumSections(),
       }
-      sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Fast_text.png/330px-Fast_text.png'></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Fast_text.png/330px-Fast_text.png'></div></section></li>"; 
       globalVars.json.mediaSections.push(textObj);
     } else {
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText'>" + textParams + "</div>" + sections.lastElementChild.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4>" + textParams + "</div>" + sections.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
         activateFunctions.push( function() {});
-        sections.innerHTML += "<li><section class='step'><div class='inlineText'>" + textParams + "</div></section></li>"; 
+        sections.innerHTML += "<li><section class='step'><div class='inlineText sectionContent'><h4>Section Content</h4>" + textParams + "</div></section></li>"; 
       }
       globalVars.json.textSections.push(textParams);
     }
@@ -148,8 +148,8 @@ $(document).ready(function (){
 	  var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
 		a.href = 'data:' + data;
 		a.download = 'data.json';
-		a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
-    download.style.display = 'block';
+		a.innerHTML = '<i class="fas fa-download"></i> Download JSON';
+    downloadDiv.style.display = 'block';
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
 	});
@@ -167,10 +167,10 @@ $(document).ready(function (){
 				"activateParams": imgParams,
 				"startPos": getNumSections(),
 			};
-      sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src=\"" + imgUrl.value + "\"></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src=\"" + imgUrl.value + "\"></div></section></li>"; 
 			globalVars.json.mediaSections.push(imgObj);
 		} else {
-			var imgHTML = "<img class='inlineImg' src=\"" + imgUrl.value + "\">" + "<div class='caption'>" + imgParams[1] + "</div>";
+			var imgHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4><img class='inlineImg' src=\"" + imgUrl.value + "\">" + "<div class='caption'>" + imgParams[1] + "</div></div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
         sections.lastElementChild.lastElementChild.innerHTML = imgHTML + sections.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
@@ -182,8 +182,8 @@ $(document).ready(function (){
 	  var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
 		a.href = 'data:' + data;
 		a.download = 'data.json';
-		a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
-    download.style.display = 'block';
+		a.innerHTML = '<i class="fas fa-download"></i> Download JSON';
+    downloadDiv.style.display = 'block';
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
     document.getElementById('imgText').value = '';
@@ -202,11 +202,11 @@ $(document).ready(function (){
 						"activateParams": ytParams,
 						"startPos": getNumSections(),
 			};
-      sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src='https://img.youtube.com/vi/" + ytUrl.value + "/default.jpg'></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://img.youtube.com/vi/" + ytUrl.value + "/default.jpg'></div></section></li>"; 
 			globalVars.json.mediaSections.push(ytObj);
 		} else {
-			var ytHTML = "<iframe class='inlineYt' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen src='https://www.youtube.com/embed/" 
-				+ ytUrl.value + "'></iframe>" + "<div class='caption'>" + ytParams[1] + "</div>";
+			var ytHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4><iframe class='inlineYt' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen src='https://www.youtube.com/embed/" 
+				+ ytUrl.value + "'></iframe>" + "<div class='caption'>" + ytParams[1] + "</div></div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
         sections.lastElementChild.lastElementChild.innerHTML = ytHTML + sections.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
@@ -218,8 +218,8 @@ $(document).ready(function (){
 	  var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
 		a.href = 'data:' + data;
 		a.download = 'data.json';
-		a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
-    download.style.display = 'block';
+		a.innerHTML = '<i class="fas fa-download"></i> Download JSON';
+    downloadDiv.style.display = 'block';
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
     document.getElementById('ytText').value = '';
@@ -238,10 +238,10 @@ $(document).ready(function (){
             "activateParams": vidParams,
             "startPos": getNumSections(),
       };
-      sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Video_-_The_Noun_Project.svg/512px-Video_-_The_Noun_Project.svg.png'></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Video_-_The_Noun_Project.svg/512px-Video_-_The_Noun_Project.svg.png'></div></section></li>"; 
       globalVars.json.mediaSections.push(vidObj);
     } else {
-      var vidHTML = "<video class='inlineVid' width='560' height='315' autoplay src='" + vidUrl.value + "' type='video/mp4'></video>" + "<div class='caption'>" + vidParams[1] + "</div>";
+      var vidHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4><video class='inlineVid' width='560' height='315' autoplay src='" + vidUrl.value + "' type='video/mp4'></video>" + "<div class='caption'>" + vidParams[1] + "</div></div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
         sections.lastElementChild.lastElementChild.innerHTML = vidHTML + sections.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
@@ -253,8 +253,8 @@ $(document).ready(function (){
     var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
     a.href = 'data:' + data;
     a.download = 'data.json';
-    a.innerHTML = '<i class="fas fa-download"></i>Download JSON';
-    download.style.display = 'block';
+    a.innerHTML = '<i class="fas fa-download"></i> Download JSON';
+    downloadDiv.style.display = 'block';
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
     document.getElementById('vidText').value = '';
@@ -263,7 +263,7 @@ $(document).ready(function (){
   // HIGLASS
   var getHg = function() {
     const thisViewConf = globalVars.hgv.exportAsViewConfString();
-    sections.innerHTML += "<li><section class=\"step\"><img class='thumbnail' src='" + globalVars.hgv.getDataURI() +"'></section></li>" //// debug: currently blank image
+    sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='" + globalVars.hgv.getDataURI() +"'></div></section></li>" //// debug: currently blank image
     globalVars.hgv.shareViewConfigAsLink("http://higlass.io/api/v1/viewconfs")
       .then((sharedViewConfig) => {
         globalVars.viewConfUrls.push("http://higlass.io/api/v1/viewconfs/?d=" + sharedViewConfig.id);
@@ -321,8 +321,8 @@ $(document).ready(function (){
         var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalVars.json));
         a.href = 'data:' + data;
         a.download = 'data.json';
-        a.innerHTML = '<i class="fas fa-download"></i>Download JSON';  
-        download.style.display = 'block';
+        a.innerHTML = '<i class="fas fa-download"></i> Download JSON';  
+        downloadDiv.style.display = 'block';
         reverseFunctions = globalVars.reverse(globalVars.json);
         scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions   
       })

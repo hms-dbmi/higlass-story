@@ -1,6 +1,6 @@
 #editCSS {
-  border-radius: 10px;
   margin:1%;
+  width:100%;
 }
 
 #sectionOptions {
@@ -33,7 +33,7 @@
 
 #imgUrl, #vidUrl{
   display:block; 
-  width:70%;
+  width:100%;
   margin-top:2%;
   margin-bottom:2%;
 }
@@ -97,8 +97,8 @@ input[type="url"]:focus {
 }
 
 #placeholder {
-  width:90vh; 
-  height:80vh; 
+  width:90%; 
+  height:80%; 
   background-color:#878f99; 
   border:1px solid #000; 
   border-radius: 20px; 
@@ -140,10 +140,36 @@ li.placeholder:before {
   display: block;
 }
 
-#download {
+#downloadDiv {
   display:none;
   margin-top: 5%;
   padding: 5%;
   background-color: gray;
   border-radius: 10px
+}
+
+#cssDiv {
+  display:block;
+  margin-top: 5%;
+  padding: 5%;
+  background-color: gray;
+  border-radius: 10px
+}
+
+.sectionContent {
+  background-color:#AB987A;
+  padding:3%;
+}
+
+.sectionThumbnail {
+  background-color:#FF533D;
+  padding:3%;
+}
+
+.thumbnail {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  width: 4rem;
+  height: auto;
 }

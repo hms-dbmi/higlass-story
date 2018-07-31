@@ -44,6 +44,5 @@ globalVars.activate = function(json) {
         break;
     } 
   }
-  console.log(activateFunctions)
   return activateFunctions;
 }
