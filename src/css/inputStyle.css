@@ -6,36 +6,53 @@
 #sectionOptions {
   border-radius: 10px; 
   background-color:#428bca; 
-  padding:5%
+  padding-bottom:5%;
+  padding-left:5%;
+  padding-right:5%;
+  padding-top:2%;
 }
 
-#textOptions {
+#textOptions, #imgOptions, #vidOptions, #ytOptions, #hgOptions {
   display:none; 
   padding-top:3%
 }
 
-#imgOptions {
-  display:none; 
-  padding-top:3%
-}
-
-#vidOptions {
-  display:none; 
-  padding-top:3%
-}
-
-#vidUrl {
+#ytUrl{
   width:30%; 
   border-radius: 10px
 }
 
-#imgUrl {
+#hgUrl {
+  display:inline-block; 
+  width:70%;
+}
+
+#submitUrl {
+  
+}
+
+#imgUrl, #vidUrl{
   display:block; 
-  width:70%; border-radius: 10px
+  width:70%;
+  margin-top:2%;
+  margin-bottom:2%;
+}
+
+#imgUrl {
+  border-radius: 5px;
+}
+
+#vidUrl {
+  border-radius: 10px;
+}
+
+#sectionText, #imgText, #ytText, #vidText {
+  border-radius: 10px;
+  margin-top: 2%;
 }
 
 #sectionText {
-  border-radius: 10px
+  margin-top: 2%;
 }
 
 input[type="url"] {
@@ -69,6 +86,13 @@ input[type="url"]:focus {
 
 #submit {
   margin-top:3%;
+  margin-left:2%;
+  display:none
+}
+
+#cancel {
+  margin-top:3%;
+  margin-left:60%;
   display:none
 }
 
@@ -84,22 +108,42 @@ input[type="url"]:focus {
 
 #placeholderText {
   text-align:center; 
-  padding-top:40%; 
+  padding-top:30%; 
   padding-bottom:40%
 }
 
-#development-demo {
-  display:none;
+body.dragging, body.dragging * {
+  cursor: move !important;
 }
 
-#img {
-  display:none;
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
 }
 
-#vid {
-  display:none;
+li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+
+#sections {
+  list-style-type: none;
 }
 
 #downloadLink {
-  
+  margin-top:2%;
+  display: block;
+}
+
+#download {
+  display:none;
+  margin-top: 5%;
+  padding: 5%;
+  background-color: gray;
+  border-radius: 10px
 }

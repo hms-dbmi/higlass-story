@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<!-- TODO: (////)
+* error handling for edge case: throws error if user closes a view that later needs to be zoomed in
+* fix bug: main.js:73439 Uncaught TypeError: Cannot read property 'trackDefObjects' of null
+* fix bug: main.js:10872 Error: <rect> attribute height: A negative value is not valid. ("-3117.3714837587595")
+-->
+
+<!-- In this commit: 
+* moved styles.css from third_party/ to src/
+-->
+
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=500" />
+  <title>View Story</title>
+
+<link rel="stylesheet" href="https://unpkg.com/higlass@1.0.1/dist/styles/hglib.css" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./src/css/style.css"> 
+  <link rel="stylesheet" href="./node_modules/higlass/app/styles/page.css">
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.2/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/15.6.2/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.31.0/react-bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+   <!-- Font Awesome JS -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+  <script src="./dist/view.js"></script>
+
+</head>
+
+<body>
+  <a href="./index.html"><i class="fas fa-home fa-3x"></i></a>
+
+  <!-- Report -->
+  <div id="graphic">
+    <div id="scrollingText"> 
+      <!-- Text -->
+      <div id="sections"></div>
+    </div>
+        <!-- Media -->
+    <div id="media"> 
+      <div id="hg"></div> <!-- HiGlass --> 
+      <div id="text"></div>
+      <div id="img"></div> <!-- Image -->
+      <div id="ytMedia"> <!-- Youtube Video -->
+        <iframe id='yt' width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div id="ytCaption" class='caption'></div>
+      </div> 
+      <div id="vidMedia"> <!-- Video -->
+        <video id='vid' width="560" height="315" autoplay type="video/mp4"></video>
+        <div id="vidCaption" class='caption'></div>
+        </div>
+    </div>
+  </div>
+
+</body>
+
+<script src="src/view/editCSS.js"></script>
+<script src="src/view/loadHg.js"></script>
+
+<!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
+<script src="./third_party/scroller.js"></script>
+<script src="./third_party/scrollerDisplay.js"></script>
+<script src="./third_party/scrollerAddOns.js"></script>
+
+<!-- coordinates overall animation -->
+<script src="src/scrollDown.js"></script>
+<script src="src/scrollUp.js"></script>
+<script src="src/view/editHTML.js"></script>
+
+</html>

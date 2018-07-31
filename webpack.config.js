@@ -4,22 +4,26 @@ module.exports = {
     __dirname: true
   },
   output: {
-    filename: 'dist/main.js',
-    path: __dirname
+    filename: '[name].js',
+    path: __dirname + '/dist'
   },
-  entry: './src/index.js',
+  entry: {
+    home: './src/home.js',
+    create: './src/create/create.js',
+    view: './src/view/view.js',
+    edit: './src/edit/edit.js'
+  },
   module: {
-  	rules: [{
-		test: /\.jsx?$/,
-  		exclude: /node_modules/,
-  		use : {
-      		loader : 'babel-loader',
-      		options : {
-          		presets : ['env', 'react'],
-      		},
-  		},
-  	}],
+    rules: [{
+    test: /\.jsx?$/,
+      exclude: /node_modules/,
+      use : {
+          loader : 'babel-loader',
+          options : {
+              presets : ['env', 'react'],
+          },
+      },
+    }],
 
   },
 };
-

@@ -1,13 +1,19 @@
 {
   "name": "higlass-story",
-  "version": "0.1",
+  "version": "0.1.0",
   "author": "Angela Chen <chen650@usc.edu>",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "higlass": "^1.0.1",
+    "jquery-sortable": "^0.9.13",
     "odiff": "^1.1.0"
   },
   "devDependencies": {
