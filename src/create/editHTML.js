@@ -1,6 +1,6 @@
 $(document).ready(function (){ 
 
-  ////
+  // drag and drop initializer
   $(function () {
     var startPos = 0;
     var endPos = 0;
@@ -23,6 +23,7 @@ $(document).ready(function (){
     });
   });
 
+  // sort text sections after drag and drop
   var sort = function(startDrag, endDrag) { ////
     if(startDrag !== endDrag) {
       tempSections = [];
@@ -64,10 +65,12 @@ $(document).ready(function (){
   // reset input values back to default
 	var selReset = function() {
     document.getElementById('imgOptions').style.display = 'none';
+    document.getElementById('hgOptions').style.display = 'none';
     document.getElementById('vidOptions').style.display = 'none';
     document.getElementById('ytOptions').style.display = 'none';
     document.getElementById('textOptions').style.display = 'none';
     document.getElementById('imgUrl').value = '';
+    document.getElementById('hgUrl').value = '';
     document.getElementById('ytUrl').value = '';
     document.getElementById('vidUrl').value = '';
     document.getElementById('sectionText').value = '';
@@ -104,6 +107,18 @@ $(document).ready(function (){
     } 
 	  selReset();
 	});
+
+  $("#scrollingText").on('click', '#submitHgUrl', function() {
+    $( "#hgUrl" ).submit();
+  });
+
+  $("#scrollingText").on('submit', '#hgUrl', function( event ) {
+    const baseApiUrl = 'http://higlass.io/api/v1/viewconfs/?d=';
+    const regExBaseHgUrl = /http:\/\/higlass.io\/app\/\?config=/;
+    var url = hgUrl.value.replace(regExBaseHgUrl, baseApiUrl);
+    globalVars.loadViewConf(url);
+    event.preventDefault();
+  });
 
   // TEXT
 	$("#scrollingText").on('submit', '#sectionText', function( event ) {
@@ -356,7 +371,9 @@ $(document).ready(function (){
   globalVars.addHg = function() {
     document.getElementById('text').style.display = 'none';
     document.getElementById('img').style.display = 'none';
-    document.getElementById('hg').style.display = 'inline-block';
+    if(document.getElementById('hg').style.display === 'none') {
+      document.getElementById('hg').style.display = 'inline-block';
+    }
     document.getElementById('vidMedia').style.display = 'none';
     document.getElementById('ytMedia').style.display = 'none';
   }

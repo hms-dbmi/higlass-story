@@ -12,17 +12,26 @@
   padding-top:2%;
 }
 
-#textOptions, #imgOptions, #vidOptions, #ytOptions {
+#textOptions, #imgOptions, #vidOptions, #ytOptions, #hgOptions {
   display:none; 
   padding-top:3%
 }
 
-#ytUrl {
+#ytUrl{
   width:30%; 
   border-radius: 10px
 }
 
-#imgUrl, #vidUrl {
+#hgUrl {
+  display:inline-block; 
+  width:70%;
+}
+
+#submitUrl {
+  
+}
+
+#imgUrl, #vidUrl{
   display:block; 
   width:70%;
   margin-top:2%;

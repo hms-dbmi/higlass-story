@@ -1,12 +1,12 @@
 globalVars.activate = function(json) { 
   var activateFunctions = [];
 
-  for (var i=0; i<globalVars.details.mediaSections.length; i++) {
+  for (var i=0; i<json.textSections.length; i++) {
     activateFunctions.push( function() {});
   }
 
-  for (var mNum in globalVars.details.mediaSections) {
-    const media = globalVars.details.mediaSections[mNum];
+  for (var mNum in json.mediaSections) {
+    const media = json.mediaSections[mNum];
     const mediaParams = media.activateParams;
     switch (media.activate) {
       case "reload":
@@ -44,6 +44,6 @@ globalVars.activate = function(json) {
         break;
     } 
   }
-
+  console.log(activateFunctions)
   return activateFunctions;
 }
