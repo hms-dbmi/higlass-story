@@ -15,17 +15,21 @@
 * edit section content
 * skip to sections
 * prompt user to enter next text/media with arrows
-* protect user from adding in wrong order
-* specify image size
 * tooltips
   * esp for CSS to expose IDs and classes
 -->
 
 <!-- TODO before next commit: (////)
+* css tooltips
 -->
 
 <!-- In this commit: 
-* css to delineate content and media thumbnail in section
+* tooltips
+* combined create and edit
+* moved files around
+* eliminated loadViewConfAndZoom by adding url to activateParams for zooms
+* fixed reload and zoom placement
+* load in JSON from input text
 -->
 
 <html class="no-js" lang="en">
@@ -51,9 +55,8 @@
   <div style="text-align:center">
   <h1>HiGlass Story</h1>
   <h4>Select mode: </h4>
-  <a href="./create.html" class="btn btn-info"><i class="fa fa-file-alt fa-lg" aria-hidden="true"></i>Create</a>
-  <a href="./view.html" class="btn btn-info"><i class="fa fa-eye fa-lg" aria-hidden="true"></i>View</a>
-  <a href="./edit.html" class="btn btn-info"><i class="fa fa-pencil-alt fa-lg" aria-hidden="true"></i>Edit</a>
+  <a href="./create.html" class="btn btn-info"><i class="fa fa-pencil-alt fa-lg" aria-hidden="true"></i>&nbsp; Write</a>
+  <a href="./view.html" class="btn btn-info"><i class="fa fa-eye fa-lg" aria-hidden="true"></i>&nbsp; View</a>
 </div>
 </body>
 

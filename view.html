@@ -49,7 +49,7 @@
     </div>
         <!-- Media -->
     <div id="media"> 
-      <div id="hg"></div> <!-- HiGlass --> 
+      <div id="hg" class="hidden"></div> <!-- HiGlass --> 
       <div id="text"></div>
       <div id="img"></div> <!-- Image -->
       <div id="ytMedia"> <!-- Youtube Video -->
@@ -65,17 +65,16 @@
 
 </body>
 
-<script src="src/view/editCSS.js"></script>
-<script src="src/loadHg.js"></script>
-
-<!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
-<script src="./third_party/scroller.js"></script>
+<script src="./third_party/scroller.js"></script> <!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
 <script src="./third_party/scrollerDisplay.js"></script>
 <script src="./third_party/scrollerAddOns.js"></script>
+<script src="./src/scrollDown.js"></script>
+<script src="./src/scrollUp.js"></script>
+<script src="./src/view/loadJSON.js"></script>
+<script src="./src/loadHg.js"></script>
+<script src="./src/shiftFocus.js"></script>
+<script src="./src/view/editCSS.js"></script>
 
-<!-- coordinates overall animation -->
-<script src="src/scrollDown.js"></script>
-<script src="src/scrollUp.js"></script>
-<script src="src/view/editHTML.js"></script>
+<script src="./src/view/main.js"></script>
 
 </html>

@@ -1,5 +1,5 @@
 #editCSS {
-  margin:1%;
+  margin-bottom:5%;
   width:100%;
 }
 
@@ -10,6 +10,20 @@
   padding-left:5%;
   padding-right:5%;
   padding-top:2%;
+}
+
+#buttonInput {
+  position: relative;
+  display: inline-block;
+  width: calc(30%);
+  min-width: calc(100% - 100vh * 660 / 500);
+  padding: 10px;
+}
+
+#buttonDiv {
+  padding:3%;
+  background-color: gray;
+  border-radius: 10px;
 }
 
 #textOptions, #imgOptions, #vidOptions, #ytOptions, #hgOptions {
@@ -24,7 +38,7 @@
 
 #hgUrl {
   display:inline-block; 
-  width:70%;
+  width:90%;
 }
 
 #submitUrl {
@@ -136,24 +150,12 @@ li.placeholder:before {
 }
 
 #downloadLink {
-  margin-top:2%;
   display: block;
+  margin-bottom:5%;
 }
 
 #downloadDiv {
   display:none;
-  margin-top: 5%;
-  padding: 5%;
-  background-color: gray;
-  border-radius: 10px
-}
-
-#cssDiv {
-  display:block;
-  margin-top: 5%;
-  padding: 5%;
-  background-color: gray;
-  border-radius: 10px
 }
 
 .sectionContent {
@@ -172,4 +174,20 @@ li.placeholder:before {
   margin-right:auto;
   width: 4rem;
   height: auto;
+}
+
+.fa-question-circle {
+  display:inline-block;
+}
+
+label {
+  display:block;
+}
+
+.tooltipIcon {
+  color:black;
+}
+
+#inputJSON {
+  width:100%;
 }

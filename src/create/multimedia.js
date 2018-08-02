@@ -1,7 +1,9 @@
 $(document).ready(function (){ 
 
   var selImg = function() {
-    document.getElementById('hg').style.display = 'none';
+    if (!$('#hg').hasClass('hidden')) {
+      $('#hg').toggleClass('hidden');
+    }
     document.getElementById('imgOptions').style.display = 'block';
     document.getElementById('vidOptions').style.display = 'none';
     document.getElementById('hgOptions').style.display = 'none';
@@ -18,7 +20,9 @@ $(document).ready(function (){
 	}
 
 var selYt = function() {
-    document.getElementById('hg').style.display = 'none';
+    if (!$('#hg').hasClass('hidden')) {
+      $('#hg').toggleClass('hidden');
+    }
     document.getElementById('vidOptions').style.display = 'none';
     document.getElementById('hgOptions').style.display = 'none';
     document.getElementById('ytOptions').style.display = 'block';
@@ -35,7 +39,9 @@ var selYt = function() {
   }
 
   var selVid = function() {
-    document.getElementById('hg').style.display = 'none';
+    if (!$('#hg').hasClass('hidden')) {
+      $('#hg').toggleClass('hidden');
+    }
     document.getElementById('vidOptions').style.display = 'block';
     document.getElementById('hgOptions').style.display = 'none';
     document.getElementById('ytOptions').style.display = 'none';
@@ -52,7 +58,9 @@ var selYt = function() {
 	}
 
   var selHg = function() {
-    document.getElementById('hg').style.display = 'inline-block';
+    if ($('#hg').hasClass('hidden')) {
+      $('#hg').toggleClass('hidden');
+    }
     document.getElementById('imgOptions').style.display = 'none';
     document.getElementById('hgOptions').style.display = 'block';
     document.getElementById('vidOptions').style.display = 'none';
@@ -68,7 +76,9 @@ var selYt = function() {
 	}
 
   var selText = function() {
-    document.getElementById('hg').style.display = 'none';
+    if (!$('#hg').hasClass('hidden')) {
+      $('#hg').toggleClass('hidden');
+    }
     document.getElementById('textOptions').style.display = 'block';
     document.getElementById('hgOptions').style.display = 'none';
     document.getElementById('imgOptions').style.display = 'none';
@@ -84,7 +94,9 @@ var selYt = function() {
 	}
 
   var selChoose = function() {
-    document.getElementById('hg').style.display = 'none';
+    if (!$('#hg').hasClass('hidden')) {
+      $('#hg').toggleClass('hidden');
+    }
     document.getElementById('img').style.display = 'none';
     document.getElementById('text').style.display = 'none';
     document.getElementById('vidMedia').style.display = 'none';

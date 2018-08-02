@@ -10,8 +10,7 @@ module.exports = {
   entry: {
     home: './src/home.js',
     create: './src/create/create.js',
-    view: './src/view/view.js',
-    edit: './src/edit/edit.js'
+    view: './src/view/view.js'
   },
   module: {
     rules: [{
