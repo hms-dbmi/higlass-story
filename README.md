@@ -5,7 +5,7 @@ A tool to build interactive stories using the HiGlass Genome Visualization frame
 **Installation:**
 
 ```bash
-$ git clone --recursive https://github.com/hms-dbmi/higlass-website
+$ git clone --recursive https://github.com/hms-dbmi/higlass-story
 $ npm install
 ```
 
