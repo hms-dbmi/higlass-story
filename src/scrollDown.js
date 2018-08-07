@@ -18,8 +18,8 @@ globalVars.activate = function(json) {
       case "zoom":
         activateFunctions[media.startPos] = function () {
           globalVars.addHg();
-          for(var i=0; i<Object.keys(mediaParams).length; i++) {
-            globalVars.hgv.zoomTo(mediaParams[i][0], mediaParams[i][1], mediaParams[i][2], mediaParams[i][3], mediaParams[i][4], 0);
+          for(var i=0; i<Object.keys(mediaParams.zoom).length; i++) {
+            globalVars.hgv.zoomTo(mediaParams.zoom[i][0], mediaParams.zoom[i][1], mediaParams.zoom[i][2], mediaParams.zoom[i][3], mediaParams.zoom[i][4], 0);
           }
         }      
         break;
@@ -44,6 +44,5 @@ globalVars.activate = function(json) {
         break;
     } 
   }
-  console.log(activateFunctions)
   return activateFunctions;
 }

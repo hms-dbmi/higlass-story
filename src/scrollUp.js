@@ -111,7 +111,7 @@ globalVars.reverse = function(json) {
 		if(mediaArr[i].activate === "zoom") { // find index of every zoom that is not preceded by another zoom before it is preceded by a reload
 			for(var j=i+1; j<mediaArr.length; j++) { // for every zoom, zoom at that spot or last "none" if there are any 
 				if(mediaArr[j].activate == "zoom" || mediaArr[j].activate == "reload" || mediaArr[j].activate == "img" || mediaArr[j].activate == "vid" || mediaArr[j].activate == "yt" || mediaArr[j].activate == "text") { 
-					let zoomParams = mediaArr[i].activateParams;
+					let zoomParams = mediaArr[i].activateParams.zoom;
 					reverseFunctions[mediaArr[j].startPos-1] = function() {
 						globalVars.addHg();
 						for(var k=0; k<Object.keys(zoomParams).length; k++) {
@@ -138,9 +138,9 @@ globalVars.reverse = function(json) {
     for(var j=reloadInd[i+1]-1; j>=0; j--) { 
       if(mediaArr[j].activate === "reload" || mediaArr[j].activate === "zoom") {
         reverseFunctions[mediaArr[j+1].startPos-1] = function() {
-        globalVars.addHg();
-        globalVars.loadViewConf(loadUrl);
-    }
+          globalVars.addHg();
+          globalVars.loadViewConf(loadUrl);
+        }
         break;
       }
     }
@@ -150,10 +150,10 @@ globalVars.reverse = function(json) {
   for(var i=0; i<zoomInd.length; i++) { // for every zoom, previous hg step should contain zoom to coords of previous load unless there is another zoom in the way
 		for(var j=reloadInd.length-1; j>=0; j--) {
 			if(mediaArr[reloadInd[j]].startPos < mediaArr[zoomInd[i]].startPos) {
-				let unZoomParams = mediaArr[reloadInd[j]].activateParams; 
-				reverseFunctions[mediaArr[reloadInd[j]+1].startPos-1] = function() { // unzoom //// but none
+				let unZoomParams = mediaArr[reloadInd[j]].activateParams.zoom; 
+				reverseFunctions[mediaArr[reloadInd[j]+1].startPos-1] = function() { // unzoom 
 					globalVars.addHg();
-					for(var k=0; k<Object.keys(unZoomParams).length-1; k++) { // end set at length-1 bc activateParams.url increases length by 1
+					for(var k=0; k<Object.keys(unZoomParams).length; k++) { 
 						globalVars.hgv.zoomTo(unZoomParams[k][0], unZoomParams[k][1], unZoomParams[k][2], unZoomParams[k][3], unZoomParams[k][4], 0);
 					}
 				}
@@ -164,13 +164,12 @@ globalVars.reverse = function(json) {
   
   // RELOAD AND ZOOM (zoom...load)
   for(var i=1; i<reloadInd.length; i++) { // find all zooms adjacent to reloads or with "none"s in between
-    let loadZoomUrl = mediaArr[reloadInd[i-1]].activateParams.url;
     for(var j=reloadInd[i]-1; j>=0; j--) {
       if(mediaArr[j].activate === "zoom") {
-        let loadZoomParams = mediaArr[j].activateParams; 
-        reverseFunctions[mediaArr[reloadInd[i]-1].startPos-1] = function() { //// BUG: load overrides zoom
-        	globalVars.addHg();
-          globalVars.loadViewConfAndZoom(loadZoomUrl, loadZoomParams);
+        let loadZoomUrl = mediaArr[j].activateParams.url; 
+        reverseFunctions[mediaArr[j+1].startPos-1] = function() { //// BUG: load overrides zoom
+        	globalVars.addHg(); 
+          globalVars.loadViewConf(loadZoomUrl);
         }
         break;
       } else if (mediaArr[j].activate === "reload") {
@@ -178,5 +177,6 @@ globalVars.reverse = function(json) {
       }
     }
   }
+
   return reverseFunctions;
 }

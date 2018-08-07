@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <!-- TODO server: (////)
+* error handling for edge case: throws error if user closes a view that later needs to be zoomed in
+* fix bug: main.js:73439 Uncaught TypeError: Cannot read property 'trackDefObjects' of null
 * add progressive scrolling effects with updateFunctions (./src/conductor.js)
   * natural zooming
   * fade in/out
@@ -11,22 +13,21 @@
 -->
 
 <!-- TODO ui: (////)
-* adding/removing sections
-* edit section content
+* edit section content 
+  * edit main view
+  * edit inline media (other than text)
 * skip to sections
-* prompt user to enter next text/media with arrows
-* protect user from adding in wrong order
-* specify image size
-* tooltips
-  * esp for CSS to expose IDs and classes
+* tooltips for CSS to expose IDs and classes
+* read in uploaded JSON file instead of using textbox
 -->
 
 <!-- TODO before next commit: (////)
+* css tooltips
 -->
 
 <!-- In this commit: 
-* when adding higlass view, add option to enter URL
-* combine higlass-story and higlass-report repos
+* changed color palette
+* select JSON file instead of using text input
 -->
 
 <html class="no-js" lang="en">
@@ -49,11 +50,12 @@
 </head>
 
 <body>
+  <div style="text-align:center">
   <h1>HiGlass Story</h1>
   <h4>Select mode: </h4>
-  <a href="./create.html" class="btn btn-info"><i class="fa fa-file-alt fa-lg" aria-hidden="true"></i>Create</a>
-  <a href="./view.html" class="btn btn-info"><i class="fa fa-eye fa-lg" aria-hidden="true"></i>View</a>
-  <a href="./edit.html" class="btn btn-info"><i class="fa fa-pencil-alt fa-lg" aria-hidden="true"></i>Edit</a>
+  <a href="./create.html" class="btn btn-info"><i class="fa fa-pencil-alt fa-lg" aria-hidden="true"></i>&nbsp; Write</a>
+  <a href="./view.html" class="btn btn-info"><i class="fa fa-eye fa-lg" aria-hidden="true"></i>&nbsp; View</a>
+</div>
 </body>
 
 </html>

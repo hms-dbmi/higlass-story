@@ -1,8 +1,7 @@
 #graphic {
   position: relative;
-  margin: 0;
+  margin: 0px;
   padding: 0px;
-  max-width: calc(50% + 100vh * 660 / 500);
   width: 100%;
 }
 
@@ -20,7 +19,7 @@
   position: fixed;
   width: calc(65%);
   max-width: calc(100vh * 660 / 500);
-  top: 4rem; 
+  top: 2rem; 
   bottom: 1rem; 
   right: 1rem
 }
@@ -44,19 +43,22 @@
   padding-top: 5%;
 }
 
-#img, #vidMedia, #ytMedia, #text, #hg {
+#img, #vidMedia, #ytMedia, #text { 
   margin-top: 3%;
   display:none;
 }
 
 .inlineVid, .inlineYt, .inlineImg {
-  width: 50vh;
+  width: 100%;
   height: auto;
 }
 
 .mainImg {
-  width: 65vh;
+  width: 50%;
+  display:block;
   height:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .caption {
@@ -71,16 +73,14 @@
   padding: 10px;
   opacity: 0.3;
   border-radius:5px;
-  background-color: lightgray;
 }
 
 #sections {
-  padding:10px;
+  padding:0px;
 }
 
 .highlighted-step {
-  border-left: 8px solid #878f99;
-  padding-left: 4px;
+  border-left: 8px solid #0F1626;
   opacity: 1.0 !important;
 }
 
@@ -94,10 +94,11 @@ p {
 }
 
 body {
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
 }
 
-.thumbnail {
-  width: 4rem;
-  height: auto;
+.hidden {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
 }

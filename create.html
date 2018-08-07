@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="./src/css/inputStyle.css"> 
   <link rel="stylesheet" href="./node_modules/higlass/app/styles/page.css">
 
+  <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.2/react.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/15.6.2/react-dom.min.js"></script>
@@ -24,22 +25,15 @@
   <script src="./third_party/mmd.min.js"></script>
   <script src="./third_party/odiff.umd.js"></script>
 
-  <!-- Font Awesome JS -->
-  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
   <script src="./dist/create.js"></script>
 
 </head>
 
 <body>
-
+  
   <a href="./index.html"><i class="fas fa-home fa-3x"></i></a>
 
-    <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-sm" id="editCSS">Edit CSS</button>
-
-  <!-- Modal -->
+  <!-- Modal to edit CSS -->
   <div class="modal fade" id="cssModal" role="dialog">
     <div class="modal-dialog">
     
@@ -97,6 +91,7 @@
 
           <div class="form-group">
             <label for="cssText">Input your own stylesheet: </label>
+            <a href="#" target="_blank"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="Click for information on how to create your own stylesheet."></span></a> <!-- -->
             <textarea class="form-control" id="cssText" rows="5" placeholder="Input stylesheet"></textarea>
           </div>
 
@@ -113,11 +108,92 @@
     </div>
   </div>
 
+  <!-- Modal to enter JSON of existing report -->
+  <div class="modal fade" id="jsonModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Load report</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="userFile">Select your report's JSON file: </label>
+           <input type="file" id="userFile" accept='application/json,.json'>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="submitJSON">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal to edit sections -->
+  <div class="modal fade" id="textModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit section content</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="selSection">Enter number (1-n) of the section to be edited: </label>
+            <div class="col-5">
+              <input class="form-control" type="number" value="" id="selSection">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="newText">Input new text here: </label>
+            <textarea class="form-control" id="newText" rows="10" placeholder="Input text"></textarea>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="submitEdit">Edit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+
   <div class="wrapper">
+
+    <!-- Buttons -->
+    <div id="buttonInput">
+      <div id="buttonDiv">
+        <div id="downloadDiv">
+          <label>All done? Click to download your report as a JSON file:</label>
+        </div>
+
+        <!-- Trigger the modal with a button -->
+        <label>Click to change the look of your story: </label>
+        <button type="button" class="btn btn-info" id="editCSS"><i class="fa fa-paint-brush" aria-hidden="true"></i>&nbsp; Edit CSS</button>
+
+        <label>Click to load in an existing report: </label>
+        <button type="button" class="btn btn-info" id="inputJSON"><i class="fa fa-file-alt" aria-hidden="true"></i>&nbsp; Load report</button>
+
+        <label>Click to edit the contents of an existing section: </label>
+        <button type="button" class="btn btn-info" id="editContent"><i class="fa fa-pencil-alt" aria-hidden="true"></i>&nbsp; Edit Content</button>
+      </div>
+    </div>
 
     <!-- Report -->
     <div id="graphic">
-
       <div id="scrollingText"> 
         <!-- Text -->
         <div id="dragAndDrop">
@@ -127,24 +203,29 @@
         <!-- Inputs -->
         <div id="sectionOptions">
           <h3>Add Story Element</h3>
-          <label for="selDisplay">What do you want to add?</label>
+          <label for="selDisplay">What do you want to add? </label>
           <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selDisplay">
             <option value="choose" selected>Select...</option>
-            <optgroup label="Either section or media view">
+            <optgroup label="Either section or main view">
               <option value="text">Text</option>
               <option value="img">Image</option>
               <option value="yt">Youtube Video</option>
               <option value="vid">Video</option>
             </optgroup>
-            <optgroup label="Only media view">
+            <optgroup label="Only main view">
               <option value="hg">HiGlass View</option>
             </optgroup>
           </select>
 
           <div id="textOptions">
-            <label>Where do you want it to go?</label>
+            <label>Where do you want it to go? 
+              <span class="glyphicon glyphicon-question-sign tooltipIcon" data-toggle="tooltip" data-html="true" data-original-title="'Inline' text will become part of the sections in this column. <br> 'Main view' text will go into the pinned area on the right, to appear when the corresponding section is scrolled to."></span>
+            </label>
             <label class="radio-inline"><input type="radio" name="selTextPos" id="selTextInline" checked>Inline</label>
             <label class="radio-inline"><input type="radio" name="selTextPos" id="selTextMain">Main View</label>
+            <label for="sectionText">What do you want it to say? 
+              <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" class="tooltipIcon"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="This textbox accepts Markdown. Click for information on how to format Markdown text."></span></a>
+            </label>
             <div class="form-group">
               <textarea class="form-control" id="sectionText" rows="3" placeholder="Enter section text"></textarea>
             </div>
@@ -153,13 +234,19 @@
            <div id="hgOptions">
             <label>Use the viewer on the right, or enter a view config URL below.</label>
             <input type="url" class="url-type-styled-input" id="hgUrl" placeholder="Enter view config URL">
+            <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="Obtain the URL of a view config by clicking the cog at the upper right corner of a HiGlass component and choosing 'Export views as link' from the menu."></span>
             <button type="primary" class="btn btn-primary" id="submitHgUrl">Submit URL</button>
           </div>
 
           <div id="imgOptions">
-            <label>Where do you want it to go?</label>
+            <label>Where do you want it to go? 
+              <span class="glyphicon glyphicon-question-sign tooltipIcon" data-toggle="tooltip" data-html="true" data-original-title="'Inline' images will become part of the sections in this column. <br> 'Main view' images will go into the pinned area on the right, to appear when the corresponding section is scrolled to."></span>
+            </label>
             <label class="radio-inline"><input type="radio" name="selImgPos" id="selImgInline" checked>Inline</label>
             <label class="radio-inline"><input type="radio" name="selImgPos" id="selImgMain">Main View</label>
+            <label for="imgUrl">What image do you want to insert? 
+              <a href="https://imgbb.com" target="_blank" class="tooltipIcon"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="Include an image in your story by providing a link address to the image. For local images, please first upload them to an image hosting site like imgbb.com to obtain a URL."></span></a>
+            </label>
             <input type="url" class="url-type-styled-input" id="imgUrl" placeholder="Enter image URL">
             <div class="form-group">
               <textarea class="form-control" id="imgText" rows="3" placeholder="Enter a caption for your image (optional)"></textarea>
@@ -167,12 +254,15 @@
           </div>
 
           <div id="ytOptions">
-            <label>Where do you want it to go?</label>
+            <label>Where do you want it to go? 
+              <span class="glyphicon glyphicon-question-sign tooltipIcon" data-toggle="tooltip" data-html="true" data-original-title="'Inline' videos will become part of the sections in this column. <br> 'Main view' videos will go into the pinned area on the right, to appear when the corresponding section is scrolled to."></span>
+            </label>
             <label class="radio-inline"><input type="radio" name="selYtPos" id="selYtInline"checked>Inline</label>
             <label class="radio-inline"><input type="radio" name="selYtPos" id="selYtMain">Main View</label>
             <div>
-              <label>https://www.youtube.com/embed/</label>
+              <label for="ytUrl">https://www.youtube.com/embed/</label>
               <input type="text" id="ytUrl" placeholder="Enter video ID">
+              <span class="glyphicon glyphicon-question-sign tooltipIcon" data-toggle="tooltip" data-html="true" data-original-title="The video ID is the combination of numbers and letters after the equals sign (=) at the end of the video URL. <br> <br> For example, for the Youtube video at the URL https://www.youtube.com/watch?v=8FW6gOx5lPI, the ID is 8FW6gOx5lPI."></span>
             </div>
             <div class="form-group">
               <textarea class="form-control" id="ytText" rows="3" placeholder="Enter a caption for your Youtube video (optional)"></textarea>
@@ -183,9 +273,10 @@
             <label>Where do you want it to go?</label>
             <label class="radio-inline"><input type="radio" name="selVidPos" id="selVidInline"checked>Inline</label>
             <label class="radio-inline"><input type="radio" name="selVidPos" id="selVidMain">Main View</label>
-            <div>
-              <input type="text" id="vidUrl" placeholder="Enter video URL">
-            </div>
+            <label for="vidUrl">What video do you want to insert?
+              <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats" target="_blank"><span class="glyphicon glyphicon-question-sign tooltipIcon" data-toggle="tooltip" data-html="true" data-original-title="Include a video in your story by providing a video address. For local videos, upload them using a video hosting site to obtain a video address. Click for a list of which video formats are supported by which browsers."></span></a>
+            </label>
+            <input type="text" id="vidUrl" placeholder="Enter video URL">
             <div class="form-group">
               <textarea class="form-control" id="vidText" rows="3" placeholder="Enter a caption for your video (optional)"></textarea>
             </div>
@@ -196,10 +287,6 @@
 
         </div>
 
-        <div id="download">
-            <label>Done editing your report? Click to download your report as a JSON file:</label>
-          </div>
-
       </div>
 
       <!-- Media -->
@@ -209,7 +296,7 @@
           <h1 id="placeholderText">Use the input box on the left to place some media here</h1>
         </div> 
       
-        <div id="hg"></div> <!-- HiGlass -->
+        <div id="hg" class="hidden"></div> <!-- HiGlass -->
         <div id="text"></div>
         <div id="img"></div> <!-- Image -->
         <div id="ytMedia"> <!-- Youtube Video -->
@@ -227,18 +314,29 @@
 
 </body>
 
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip({placement:'right'});   
+});
+</script>
 
-<!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
-<script src="./third_party/jquery-sortable.js"></script>
-<script src="./third_party/scroller.js"></script>
-<script src="./third_party/scrollerAddOns.js"></script>
-<script src="./src/create/editCSS.js"></script> 
-<script src="./src/create/multimedia.js"></script> 
 <script src="./src/scrollUp.js"></script>
 <script src="./src/scrollDown.js"></script>
+<script src="./src/shiftFocus.js"></script>
+<script src="./src/create/multimedia.js"></script> 
+<script src="./src/create/jsonModal.js"></script>
+<script src="./third_party/jquery-sortable.js"></script>
+<script src="./third_party/scroller.js"></script> <!-- Jim Vallandingham's scroller scripts from https://github.com/stitchfix/hello-scrollytelling -->
+<script src="./third_party/scrollerAddOns.js"></script>
+<script src="./src/create/editCSS.js"></script> 
 <script src="./third_party/scrollerDisplay.js"></script>
 <script src="./src/create/compareViewConfs.js"></script>
 <script src="./src/create/editHTML.js"></script>
-<script src="./src/create/loadHg.js"></script>
+<script src="./src/loadHg.js"></script>
+<script src="./src/create/delete.js"></script>
+<script src="./src/create/editContent.js"></script>
+
+<script src="./src/create/main.js"></script>
+
 
 </html>

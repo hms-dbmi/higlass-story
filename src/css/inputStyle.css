@@ -1,6 +1,6 @@
 #editCSS {
-  border-radius: 10px;
-  margin:1%;
+  margin-bottom:5%;
+  width:100%;
 }
 
 #sectionOptions {
@@ -10,6 +10,27 @@
   padding-left:5%;
   padding-right:5%;
   padding-top:2%;
+  background-color: #5D5C61; /* color */
+  color:#f9f9f9;
+}
+
+#selDisplay {
+  color:black; /* color */
+}
+
+#buttonInput {
+  position: relative;
+  display: inline-block;
+  width: calc(30%);
+  min-width: calc(100% - 100vh * 660 / 500);
+  padding: 10px;
+}
+
+#buttonDiv {
+  padding:3%;
+  background-color: #5D5C61; /* color */
+  border-radius: 10px;
+  color:#f9f9f9; /* color */
 }
 
 #textOptions, #imgOptions, #vidOptions, #ytOptions, #hgOptions {
@@ -24,7 +45,7 @@
 
 #hgUrl {
   display:inline-block; 
-  width:70%;
+  width:90%;
 }
 
 #submitUrl {
@@ -33,7 +54,7 @@
 
 #imgUrl, #vidUrl{
   display:block; 
-  width:70%;
+  width:100%;
   margin-top:2%;
   margin-bottom:2%;
 }
@@ -97,19 +118,22 @@ input[type="url"]:focus {
 }
 
 #placeholder {
-  width:90vh; 
-  height:80vh; 
-  background-color:#878f99; 
+  width:90%; 
+  height:80%; 
+  background-color:#5D5C61; /* color */
   border:1px solid #000; 
   border-radius: 20px; 
   float:right; 
   margin-top:5%;
+  color: #f9f9f9; /* color */
 }
 
 #placeholderText {
   text-align:center; 
   padding-top:30%; 
-  padding-bottom:40%
+  padding-bottom:40%;
+  padding-right:10%;
+  padding-left:10%;
 }
 
 body.dragging, body.dragging * {
@@ -136,14 +160,81 @@ li.placeholder:before {
 }
 
 #downloadLink {
-  margin-top:2%;
   display: block;
+  margin-bottom:5%;
 }
 
-#download {
+#downloadDiv {
   display:none;
-  margin-top: 5%;
-  padding: 5%;
-  background-color: gray;
-  border-radius: 10px
 }
+
+#editContent {
+  display: block;
+  margin-bottom:5%;
+  width:100%;
+}
+
+.sectionContent {
+  background-color:#7395AE; /* color */
+  padding:3%;
+  color:black; /* color */
+}
+
+.sectionThumbnail {
+  background-color:#557A95; /* color */
+  padding:3%;
+  color:black; /* color */
+}
+
+.thumbnail {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  width: 4rem;
+  height: auto;
+}
+
+.fa-question-circle {
+  display:inline-block;
+}
+
+label {
+  display:block;
+}
+
+.tooltipIcon {
+  color:white; /* color */
+}
+
+#inputJSON {
+  width:100%;
+  margin-bottom:5%;
+}
+
+.fa-clickable {
+  cursor:pointer;
+  outline:none;
+  color:#f9f9f9;
+}
+
+.step {
+  background-color: #5D5C61; /* color */
+}
+
+body {
+  background-color: #d8d4db; /* color */
+}
+
+.btn-info {
+  background-color: #7395AE; /* color */
+  border-color: #7395AE;
+}
+
+a {
+  color:#557A95;
+}
+
+.btn-primary {
+  background-color:#557A95;
+}
+
