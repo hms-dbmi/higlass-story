@@ -6,6 +6,6 @@ window.globalVars = {}; // global Vars: createHg, details, hgv, loadHg, loadView
 globalVars.createHg = createHgComponent;
 
 globalVars.allowExport = function (viewConf) { 
-  viewConf.exportViewUrl = "https://higlass.io" + viewConf.exportViewUrl;
+  viewConf.exportViewUrl = "//higlass.io" + viewConf.exportViewUrl;
   return viewConf;
 }

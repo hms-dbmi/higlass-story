@@ -6,10 +6,6 @@ globalVars.loadHg = function(viewConfigUrl) {
 }
 
 globalVars.loadViewConf = function(viewConfigUrl) {
-  let vc = JSON.parse(globalVars.hgv.exportAsViewConfString());
-  // for(var i=0; i<vc.views.length; i++) {
-  //   globalVars.hgv.zoomToDataExtent(vc.views[i].uid);
-  // }
   fetch(viewConfigUrl)
     .then(getJSON, handleErrors)
     .then(setViewConf, handleErrors)
