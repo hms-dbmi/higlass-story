@@ -19,6 +19,7 @@ globalVars.json = {
 }
 
 globalVars.allowExport = function (viewConf) { 
-	viewConf.exportViewUrl = "http://higlass.io" + viewConf.exportViewUrl;
+	viewConf.exportViewUrl = "https://higlass.io" + viewConf.exportViewUrl;
 	return viewConf;
 }
+
