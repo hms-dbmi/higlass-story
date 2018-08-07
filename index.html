@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <!-- TODO server: (////)
+* error handling for edge case: throws error if user closes a view that later needs to be zoomed in
+* fix bug: main.js:73439 Uncaught TypeError: Cannot read property 'trackDefObjects' of null
 * add progressive scrolling effects with updateFunctions (./src/conductor.js)
   * natural zooming
   * fade in/out
@@ -11,12 +13,12 @@
 -->
 
 <!-- TODO ui: (////)
-* adding/removing sections
-* edit section content
+* edit section content 
+  * edit main view
+  * edit inline media (other than text)
 * skip to sections
-* prompt user to enter next text/media with arrows
-* tooltips
-  * esp for CSS to expose IDs and classes
+* tooltips for CSS to expose IDs and classes
+* read in uploaded JSON file instead of using textbox
 -->
 
 <!-- TODO before next commit: (////)
@@ -24,12 +26,10 @@
 -->
 
 <!-- In this commit: 
-* tooltips
-* combined create and edit
-* moved files around
-* eliminated loadViewConfAndZoom by adding url to activateParams for zooms
-* fixed reload and zoom placement
-* load in JSON from input text
+* edit text of sections by modal
+* changed loading of json in view.js to text input, commented out functions in loadJSON.js and main.js
+* removing sections
+* stylesheet just for view mode
 -->
 
 <html class="no-js" lang="en">

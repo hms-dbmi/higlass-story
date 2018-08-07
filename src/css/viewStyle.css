@@ -1,0 +1,20 @@
+#outer {
+  display: table;
+  position:absolute;
+  height:calc(100% - 50px);
+  width:100%;
+  z-index:1
+}
+
+#inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#inputJSON {
+  display:block;
+  margin-left: auto; 
+  margin-right: auto; width: 
+  50%;padding-top:2%; 
+  padding-bottom:2%
+}

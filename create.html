@@ -135,11 +135,49 @@
     </div>
   </div>
 
+  <!-- Modal to edit sections -->
+  <div class="modal fade" id="textModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit section content</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="selSection">Enter number (1-n) of the section to be edited: </label>
+            <div class="col-5">
+              <input class="form-control" type="number" value="" id="selSection">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="newText">Input new text here: </label>
+            <textarea class="form-control" id="newText" rows="10" placeholder="Input text"></textarea>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="submitEdit">Edit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+
   <div class="wrapper">
+
+    <!-- Buttons -->
     <div id="buttonInput">
       <div id="buttonDiv">
         <div id="downloadDiv">
-          <label>Done editing your report? Click to download your report as a JSON file:</label>
+          <label>All done? Click to download your report as a JSON file:</label>
         </div>
 
         <!-- Trigger the modal with a button -->
@@ -148,8 +186,12 @@
 
         <label>Click to load in an existing report: </label>
         <button type="button" class="btn btn-info" id="inputJSON"><i class="fa fa-file-alt" aria-hidden="true"></i>&nbsp; Load report</button>
+
+        <label>Click to edit the contents of an existing section: </label>
+        <button type="button" class="btn btn-info" id="editContent"><i class="fa fa-pencil-alt" aria-hidden="true"></i>&nbsp; Edit Content</button>
       </div>
     </div>
+
     <!-- Report -->
     <div id="graphic">
       <div id="scrollingText"> 
@@ -164,7 +206,7 @@
           <label for="selDisplay">What do you want to add? </label>
           <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selDisplay">
             <option value="choose" selected>Select...</option>
-            <optgroup label="Either section or media view">
+            <optgroup label="Either section or main view">
               <option value="text">Text</option>
               <option value="img">Image</option>
               <option value="yt">Youtube Video</option>
@@ -291,6 +333,8 @@ $(document).ready(function(){
 <script src="./src/create/compareViewConfs.js"></script>
 <script src="./src/create/editHTML.js"></script>
 <script src="./src/loadHg.js"></script>
+<script src="./src/create/delete.js"></script>
+<script src="./src/create/editContent.js"></script>
 
 <script src="./src/create/main.js"></script>
 

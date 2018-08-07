@@ -1,6 +1,6 @@
 $(document).ready(function (){ 
 
-  // initialize link
+  // DOWNLOAD: initialize link
   var a = document.createElement('a');
   a.className = "btn btn-info";
   a.id = "downloadLink";
@@ -11,7 +11,7 @@ $(document).ready(function (){
   var activateFunctions = [];
   var reverseFunctions = [];
 
-  // drag and drop initializer
+  // SWAP: drag and drop initializer
   $(function () {
     var startPos = 0;
     var endPos = 0;
@@ -56,11 +56,11 @@ $(document).ready(function (){
         }
       }
       globalVars.json.textSections = tempSections;
-      download(globalVars.json);
+      globalVars.download(globalVars.json);
     }
   }
 
-  var download = function(json) {
+  globalVars.download = function(json) {
     var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
     a.href = 'data:' + data;
     a.download = 'data.json';
@@ -141,20 +141,20 @@ $(document).ready(function (){
         "activate": "text",
         "activateParams": textParams,
         "startPos": getNumSections(),
-      }
-      sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Fast_text.png/330px-Fast_text.png'></div></section></li>"; 
+      } 
+      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Fast_text.png/330px-Fast_text.png'></div></div></section></li>"; 
       globalVars.json.mediaSections.push(textObj);
     } else {
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4>" + textParams 
-          + "</div>" + sections.lastElementChild.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4>" + textParams 
+          + "</div>" + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
         activateFunctions.push( function() {});
-        sections.innerHTML += "<li><section class='step'><div class='inlineText sectionContent'><h4>Section Content</h4>" + textParams + "</div></section></li>"; 
+        sections.innerHTML += "<li><section class='step'><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div class='inlineText sectionContent'><h4>Section Content: </h4>" + textParams + "</div></section></li>"; 
       }
       globalVars.json.textSections.push(textParams);
     }
-	  download(globalVars.json);
+	  globalVars.download(globalVars.json);
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
 	});
@@ -165,12 +165,12 @@ $(document).ready(function (){
 		if($('input[id=selImgMain]').is(":checked")) {
       if(getNumSections() > globalVars.json.textSections.length) {
         globalVars.json.textSections.push("");
-        sections.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4></div>" 
+        sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4></div>" 
           + sections.lastElementChild.lastElementChild.innerHTML;
 
       }
 			globalVars.addImg(imgParams);
-			activateFunctions[getNumSections()] = function() {
+			activateFunctions[getNumSections()] = function() {                                                                                                                                                                                                                                                                                                                                                                                                                 
 				globalVars.addImg(imgParams);
 			};
 			var imgObj = {
@@ -178,19 +178,19 @@ $(document).ready(function (){
 				"activateParams": imgParams,
 				"startPos": getNumSections(),
 			};
-      sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src=\"" + imgUrl.value + "\"></div></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src=\"" + imgUrl.value + "\"></div></div></section></li>"; 
 			globalVars.json.mediaSections.push(imgObj);
 		} else {
-			var imgHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4><img class='inlineImg' src=\"" + imgUrl.value + "\">" + "<div class='caption'>" + imgParams[1] + "</div></div>";
+			var imgHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4><img class='inlineImg' src=\"" + imgUrl.value + "\">" + "<div class='caption'>" + imgParams[1] + "</div></div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.lastElementChild.innerHTML = imgHTML + sections.lastElementChild.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = imgHTML + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
         activateFunctions.push( function() {});
-        sections.innerHTML += "<li><section class=\"step\">" + imgHTML + "</section></li>"; 
+        sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + imgHTML + "</div></section></li>"; 
       }
 		  globalVars.json.textSections.push(imgHTML);
 		}
-    download(globalVars.json);
+    globalVars.download(globalVars.json);
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
     document.getElementById('imgText').value = '';
@@ -202,8 +202,8 @@ $(document).ready(function (){
 		if($('input[id=selYtMain]').is(":checked")) {
       if(getNumSections() > globalVars.json.textSections.length) {
         globalVars.json.textSections.push("");
-        sections.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4></div>" 
-          + sections.lastElementChild.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4></div>" 
+          + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
       }
 			globalVars.addYt(ytParams);
 			activateFunctions[getNumSections()] = function() {
@@ -214,20 +214,20 @@ $(document).ready(function (){
 						"activateParams": ytParams,
 						"startPos": getNumSections(),
 			};
-      sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://img.youtube.com/vi/" + ytUrl.value + "/default.jpg'></div></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://img.youtube.com/vi/" + ytUrl.value + "/default.jpg'></div></div></section></li>"; 
 			globalVars.json.mediaSections.push(ytObj);
 		} else {
-			var ytHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4><iframe class='inlineYt' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen src='https://www.youtube.com/embed/" 
+			var ytHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4><iframe class='inlineYt' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen src='https://www.youtube.com/embed/" 
 				+ ytUrl.value + "'></iframe>" + "<div class='caption'>" + ytParams[1] + "</div></div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.lastElementChild.innerHTML = ytHTML + sections.lastElementChild.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = ytHTML + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
         activateFunctions.push( function() {});
-        sections.innerHTML += "<li><section class=\"step\">" + ytHTML + "</section></li>"; 
+        sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + ytHTML + "</div></section></li>"; 
       }
 		  globalVars.json.textSections.push(ytHTML);
 		}
-	  download(globalVars.json);
+	  globalVars.download(globalVars.json);
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
     document.getElementById('ytText').value = '';
@@ -239,8 +239,8 @@ $(document).ready(function (){
     if($('input[id=selVidMain]').is(":checked")) {
       if(getNumSections() > globalVars.json.textSections.length) {
         globalVars.json.textSections.push("");
-        sections.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4></div>" 
-          + sections.lastElementChild.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4></div>" 
+          + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
       }
       globalVars.addVid(vidParams);
       activateFunctions[getNumSections()] = function() {
@@ -251,19 +251,19 @@ $(document).ready(function (){
             "activateParams": vidParams,
             "startPos": getNumSections(),
       };
-      sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Video_-_The_Noun_Project.svg/512px-Video_-_The_Noun_Project.svg.png'></div></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Video_-_The_Noun_Project.svg/512px-Video_-_The_Noun_Project.svg.png'></div></div></section></li>"; 
       globalVars.json.mediaSections.push(vidObj);
     } else {
-      var vidHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4><video class='inlineVid' width='560' height='315' autoplay src='" + vidUrl.value + "' type='video/mp4'></video>" + "<div class='caption'>" + vidParams[1] + "</div></div>";
+      var vidHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4><video class='inlineVid' width='560' height='315' autoplay src='" + vidUrl.value + "' type='video/mp4'></video>" + "<div class='caption'>" + vidParams[1] + "</div></div>";
       if(getNumSections() > globalVars.json.textSections.length) { // fill empty section with content
-        sections.lastElementChild.lastElementChild.innerHTML = vidHTML + sections.lastElementChild.lastElementChild.innerHTML;
+        sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = vidHTML + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
       } else { // create new section of content
         activateFunctions.push( function() {});
-        sections.innerHTML += "<li><section class=\"step\">" + vidHTML + "</section></li>"; 
+        sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + vidHTML + "</div></section></li>"; 
       }
       globalVars.json.textSections.push(vidHTML);
     }
-    download(globalVars.json);
+    globalVars.download(globalVars.json);
     reverseFunctions = globalVars.reverse(globalVars.json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
     document.getElementById('vidText').value = '';
@@ -273,14 +273,14 @@ $(document).ready(function (){
   var getHg = function() {
     if(getNumSections() > globalVars.json.textSections.length) {
       globalVars.json.textSections.push("");
-      sections.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content</h4></div>" 
-          + sections.lastElementChild.lastElementChild.innerHTML;
+      sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4></div>" 
+          + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
     }
     const thisViewConf = globalVars.hgv.exportAsViewConfString();
-    sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='" 
-     + "https://preview.ibb.co/cm8PLe/Full_Genome1_Mb.jpg" +"'></div></section></li>" //// generic replacement for broken image
-    //sections.innerHTML += "<li><section class=\"step\"><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='" 
-    //  + globalVars.hgv.getDataURI() + "'></div></section></li>" //// debug: currently blank image
+    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='" 
+     + "https://preview.ibb.co/cm8PLe/Full_Genome1_Mb.jpg" +"'></div></div></section></li>" //// generic replacement for broken image
+    // sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='" 
+    //  + globalVars.hgv.getDataURI() + "'></div></div></section></li>" //// debug: currently blank image
     globalVars.hgv.shareViewConfigAsLink("http://higlass.io/api/v1/viewconfs")
       .then((sharedViewConfig) => {
         globalVars.viewConfUrls.push("http://higlass.io/api/v1/viewconfs/?d=" + sharedViewConfig.id);
@@ -305,7 +305,7 @@ $(document).ready(function (){
               activateFunctions[getNumSections()-1] = function() {
                 globalVars.addHg();
                 for(var i=0; i<Object.keys(zoomParams).length; i++) {
-                  globalVars.hgv.zoomTo(zoomParams[i][0], zoomParams[i][1], zoomParams[i][2], zoomParams[i][3], zoomParams[i][4], 0);
+                  globalVars.hgv.zoomTo(zoomParams[i][0], zoomParams[i][1], zoomParams[i][2], zoomParams[i][3], zoomParams[i][4], 500); //// 0
                 }
               };
               break;
@@ -336,7 +336,7 @@ $(document).ready(function (){
           globalVars.json.mediaSections.push(hgObj);
         }
         globalVars.prevViewConf = thisViewConf;
-        download(globalVars.json);
+        globalVars.download(globalVars.json);
         reverseFunctions = globalVars.reverse(globalVars.json);
         scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions   
       })

@@ -123,7 +123,9 @@ input[type="url"]:focus {
 #placeholderText {
   text-align:center; 
   padding-top:30%; 
-  padding-bottom:40%
+  padding-bottom:40%;
+  padding-right:10%;
+  padding-left:10%;
 }
 
 body.dragging, body.dragging * {
@@ -158,6 +160,12 @@ li.placeholder:before {
   display:none;
 }
 
+#editContent {
+  display: block;
+  margin-bottom:5%;
+  width:100%;
+}
+
 .sectionContent {
   background-color:#AB987A;
   padding:3%;
@@ -190,4 +198,14 @@ label {
 
 #inputJSON {
   width:100%;
+  margin-bottom:5%;
+}
+
+.fa-clickable {
+  cursor:pointer;
+  outline:none;
+}
+
+.step {
+  background-color: gray;
 }

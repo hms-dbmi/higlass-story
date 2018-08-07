@@ -9,8 +9,7 @@ $(document).ready(function (){
   });
 
   $(".modal-body").on('submit', '#jsonText', function() {
-    globalVars.json = jsonText.value;
-    loadJSON(globalVars.json);
+    loadJSON(jsonText.value);
   });
 
   loadJSON = function(json) { 
@@ -22,11 +21,11 @@ $(document).ready(function (){
     var reverseFunctions = globalVars.reverse(json);
 
     for (var i=0; i<json.textSections.length; i++) { 
-      var str = "<li><section class=\"step\"><div class='inlineText sectionContent'><h4>Section Content</h4>" + json.textSections[i] + 
+      var str = "<li><section class=\"step\"><div class='inlineText sectionContent'><h4>Section Content: </h4>" + json.textSections[i] + 
             "</div>";
       for (var j=0; j<json.mediaSections.length; j++) {
         if(json.mediaSections[j].startPos === i) {
-          str += "<div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4>";
+          str += "<div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4>";
           switch(json.mediaSections[j].activate) {
             case "text":
               str += "<img class='thumbnail' src=\"" + "https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Fast_text.png/330px-Fast_text.png" + "\">"; 
@@ -53,6 +52,7 @@ $(document).ready(function (){
     }
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions);
     document.getElementById('jsonText').value = '';
+    globalVars.download(json);
   }
 
 });
