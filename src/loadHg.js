@@ -36,7 +36,7 @@ function createHgv(response) {
 }
 
 function setViewConf(response) {
-  const p = globalVars.hgv.setViewConfig(allowExport(response));
+  const p = globalVars.hgv.setViewConfig(response);
   p.then(() => {
     
   });
