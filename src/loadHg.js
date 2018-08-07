@@ -27,16 +27,22 @@ function getJSON(response) {
 }
 
 function createHgv(response) { 
+
   globalVars.hgv = globalVars.createHg( // creates the view
     document.getElementById('hg'),
-    globalVars.allowExport(response),
+    allowExport(response),
     { bounded: true }
   );
 }
 
 function setViewConf(response) {
-  const p = globalVars.hgv.setViewConfig(response);
+  const p = globalVars.hgv.setViewConfig(allowExport(response));
   p.then(() => {
-    return globalVars.allowExport(response);
+    
   });
+}
+
+var allowExport = function (viewConf) { 
+  viewConf.exportViewUrl = "//higlass.io" + viewConf.exportViewUrl;
+  return viewConf;
 }

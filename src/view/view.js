@@ -4,8 +4,3 @@ window.globalVars = {}; // global Vars: createHg, details, hgv, loadHg, loadView
                         // loadViewConfAndZoom, reverse, activate
 
 globalVars.createHg = createHgComponent;
-
-globalVars.allowExport = function (viewConf) { 
-  viewConf.exportViewUrl = "//higlass.io" + viewConf.exportViewUrl;
-  return viewConf;
-}

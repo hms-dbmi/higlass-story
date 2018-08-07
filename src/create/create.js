@@ -17,9 +17,3 @@ globalVars.json = {
 	textSections: [],
 	mediaSections: []
 }
-
-globalVars.allowExport = function (viewConf) { 
-	viewConf.exportViewUrl = "//higlass.io" + viewConf.exportViewUrl;
-	return viewConf;
-}
-
