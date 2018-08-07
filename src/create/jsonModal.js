@@ -4,13 +4,18 @@ $(document).ready(function (){
     $("#jsonModal").modal();
   });
 
-  $(".modal-footer").on('click', '#submitJSON', function() {
-    $("#jsonText").submit();
-  });
+  var openFile = function(event) {
+    var input = document.getElementById("userFile");
 
-  $(".modal-body").on('submit', '#jsonText', function() {
-    loadJSON(jsonText.value);
-  });
+    var reader = new FileReader();
+    reader.onload = function(){
+      var text = reader.result;
+      loadJSON(text);
+    };
+    reader.readAsText(input.files[0]);
+  };
+
+  document.getElementById('submitJSON').addEventListener('click', openFile, false);
 
   loadJSON = function(json) { 
     sections.innerHTML = "";
@@ -51,7 +56,6 @@ $(document).ready(function (){
       sections.innerHTML += str;
     }
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions);
-    document.getElementById('jsonText').value = '';
     globalVars.download(json);
   }
 

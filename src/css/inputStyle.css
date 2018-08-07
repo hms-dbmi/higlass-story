@@ -10,6 +10,12 @@
   padding-left:5%;
   padding-right:5%;
   padding-top:2%;
+  background-color: #5D5C61; /* color */
+  color:#f9f9f9;
+}
+
+#selDisplay {
+  color:black; /* color */
 }
 
 #buttonInput {
@@ -22,8 +28,9 @@
 
 #buttonDiv {
   padding:3%;
-  background-color: gray;
+  background-color: #5D5C61; /* color */
   border-radius: 10px;
+  color:#f9f9f9; /* color */
 }
 
 #textOptions, #imgOptions, #vidOptions, #ytOptions, #hgOptions {
@@ -113,11 +120,12 @@ input[type="url"]:focus {
 #placeholder {
   width:90%; 
   height:80%; 
-  background-color:#878f99; 
+  background-color:#5D5C61; /* color */
   border:1px solid #000; 
   border-radius: 20px; 
   float:right; 
   margin-top:5%;
+  color: #f9f9f9; /* color */
 }
 
 #placeholderText {
@@ -167,13 +175,15 @@ li.placeholder:before {
 }
 
 .sectionContent {
-  background-color:#AB987A;
+  background-color:#7395AE; /* color */
   padding:3%;
+  color:black; /* color */
 }
 
 .sectionThumbnail {
-  background-color:#FF533D;
+  background-color:#557A95; /* color */
   padding:3%;
+  color:black; /* color */
 }
 
 .thumbnail {
@@ -193,7 +203,7 @@ label {
 }
 
 .tooltipIcon {
-  color:black;
+  color:white; /* color */
 }
 
 #inputJSON {
@@ -204,8 +214,27 @@ label {
 .fa-clickable {
   cursor:pointer;
   outline:none;
+  color:#f9f9f9;
 }
 
 .step {
-  background-color: gray;
+  background-color: #5D5C61; /* color */
 }
+
+body {
+  background-color: #d8d4db; /* color */
+}
+
+.btn-info {
+  background-color: #7395AE; /* color */
+  border-color: #7395AE;
+}
+
+a {
+  color:#557A95;
+}
+
+.btn-primary {
+  background-color:#557A95;
+}
+
