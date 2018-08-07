@@ -305,7 +305,7 @@ $(document).ready(function (){
               activateFunctions[getNumSections()-1] = function() {
                 globalVars.addHg();
                 for(var i=0; i<Object.keys(zoomParams).length; i++) {
-                  globalVars.hgv.zoomTo(zoomParams[i][0], zoomParams[i][1], zoomParams[i][2], zoomParams[i][3], zoomParams[i][4], 500); //// 0
+                  globalVars.hgv.zoomTo(zoomParams[i][0], zoomParams[i][1], zoomParams[i][2], zoomParams[i][3], zoomParams[i][4], 0); //// 0
                 }
               };
               break;
