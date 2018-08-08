@@ -55,8 +55,17 @@ $(document).ready(function (){
       str += "</section></li>"; 
       sections.innerHTML += str;
     }
+    setCSS(json);
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions);
     globalVars.download(json);
+  }
+
+  var setCSS = function(json) {
+    document.getElementById('scrollingText').style.fontFamily = json.fontFamily;
+    document.getElementById('scrollingText').style.color = json.fontColor;
+    document.getElementById('scrollingText').style.fontSize = json.fontSize/16 + "rem";
+    document.body.style.background = json.bgColor;
+    globalVars.cssEngine(json.css);
   }
 
 });

@@ -15,8 +15,6 @@ $(document).on("click", ".fa-clickable", function() {
   } 
   activateFunctions = globalVars.activate(globalVars.json);
   reverseFunctions = globalVars.reverse(globalVars.json);
-  console.log(activateFunctions)
-  console.log(reverseFunctions)
   globalVars.download(globalVars.json);
   scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); 
 });

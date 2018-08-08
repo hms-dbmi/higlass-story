@@ -29,6 +29,7 @@ $(document).ready(function (){
     }
     scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions);
     document.getElementById('inputJSON').style.display = 'none';
+    globalVars.setCSS();
   }
 
 });
