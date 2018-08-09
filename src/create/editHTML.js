@@ -119,7 +119,7 @@ $(document).ready(function (){
   });
 
   $("#scrollingText").on('submit', '#hgUrl', function( event ) {
-    const baseApiUrl = 'http://higlass.io/api/v1/viewconfs/?d=';
+    const baseApiUrl = 'https://higlass.io/api/v1/viewconfs/?d=';
     const regExBaseHgUrl = /http:\/\/higlass.io\/app\/\?config=/;
     var url = hgUrl.value.replace(regExBaseHgUrl, baseApiUrl);
     globalVars.loadViewConf(url);
@@ -281,9 +281,9 @@ $(document).ready(function (){
      + "https://preview.ibb.co/cm8PLe/Full_Genome1_Mb.jpg" +"'></div></div></section></li>" //// generic replacement for broken image
     // sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Media Content <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='" 
     //  + globalVars.hgv.getDataURI() + "'></div></div></section></li>" //// debug: currently blank image
-    globalVars.hgv.shareViewConfigAsLink("http://higlass.io/api/v1/viewconfs")
+    globalVars.hgv.shareViewConfigAsLink("https://higlass.io/api/v1/viewconfs")
       .then((sharedViewConfig) => {
-        globalVars.viewConfUrls.push("http://higlass.io/api/v1/viewconfs/?d=" + sharedViewConfig.id);
+        globalVars.viewConfUrls.push("https://higlass.io/api/v1/viewconfs/?d=" + sharedViewConfig.id);
         if(typeof globalVars.prevViewConf !== 'undefined') {
           const trans = globalVars.typeOfChange(globalVars.prevViewConf, thisViewConf, globalVars.viewConfUrls.slice(-1)[0]);
           var hgObj = {
@@ -305,7 +305,7 @@ $(document).ready(function (){
               activateFunctions[getNumSections()-1] = function() {
                 globalVars.addHg();
                 for(var i=0; i<Object.keys(zoomParams).length; i++) {
-                  globalVars.hgv.zoomTo(zoomParams[i][0], zoomParams[i][1], zoomParams[i][2], zoomParams[i][3], zoomParams[i][4], 500); //// 0
+                  globalVars.hgv.zoomTo(zoomParams[i][0], zoomParams[i][1], zoomParams[i][2], zoomParams[i][3], zoomParams[i][4], 0); //// 0
                 }
               };
               break;

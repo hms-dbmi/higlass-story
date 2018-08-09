@@ -1,6 +1,6 @@
 $(document).ready(function (){ 
 
-  function cssEngine(rule) {
+  globalVars.cssEngine = function(rule) {
     var css = document.createElement('style'); // Creates <style></style>
     css.className = 'customCSS';
     css.type = 'text/css'; // Specifies the type

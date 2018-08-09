@@ -6,10 +6,6 @@ globalVars.loadHg = function(viewConfigUrl) {
 }
 
 globalVars.loadViewConf = function(viewConfigUrl) {
-  let vc = JSON.parse(globalVars.hgv.exportAsViewConfString());
-  // for(var i=0; i<vc.views.length; i++) {
-  //   globalVars.hgv.zoomToDataExtent(vc.views[i].uid);
-  // }
   fetch(viewConfigUrl)
     .then(getJSON, handleErrors)
     .then(setViewConf, handleErrors)
@@ -31,9 +27,10 @@ function getJSON(response) {
 }
 
 function createHgv(response) { 
+
   globalVars.hgv = globalVars.createHg( // creates the view
     document.getElementById('hg'),
-    globalVars.allowExport(response),
+    allowExport(response),
     { bounded: true }
   );
 }
@@ -41,6 +38,11 @@ function createHgv(response) {
 function setViewConf(response) {
   const p = globalVars.hgv.setViewConfig(response);
   p.then(() => {
-    return response;
+    
   });
+}
+
+var allowExport = function (viewConf) { 
+  viewConf.exportViewUrl = "//higlass.io" + viewConf.exportViewUrl;
+  return viewConf;
 }
