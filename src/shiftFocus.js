@@ -1,4 +1,4 @@
-globalVars.addText = function(md) {
+export function addText(md) {
   document.getElementById('text').style.display = 'block';
   document.getElementById('img').style.display = 'none';
   if (!$('#hg').hasClass('hidden')) {
@@ -9,7 +9,7 @@ globalVars.addText = function(md) {
   text.innerHTML = "<div class='mainText'>" + md + "</div>";
 }
 
-globalVars.addImg = function(arr) {
+export function addImg(arr) {
   document.getElementById('text').style.display = 'none';
   if (!($('#hg').hasClass('hidden'))) {
     $('#hg').toggleClass('hidden');
@@ -20,7 +20,7 @@ globalVars.addImg = function(arr) {
   img.innerHTML = "<img class='mainImg' src=\"" + arr[0] + "\">" + "<div class='caption'>" + arr[1] + "</div>";
 }
 
-globalVars.addYt = function(arr) {
+export function addYt(arr) {
   document.getElementById('text').style.display = 'none';
   document.getElementById('img').style.display = 'none';
   if (!$('#hg').hasClass('hidden')) {
@@ -33,7 +33,7 @@ globalVars.addYt = function(arr) {
   ytCaption.innerHTML = arr[1];
 }
 
-globalVars.addVid = function(arr) {
+export function addVid(arr) {
   document.getElementById('text').style.display = 'none';
   document.getElementById('img').style.display = 'none';
   if (!$('#hg').hasClass('hidden')) {
@@ -45,7 +45,7 @@ globalVars.addVid = function(arr) {
   vidCaption.innerHTML = arr[1];
 }
 
-globalVars.addHg = function() {
+export function addHg() {
   document.getElementById('text').style.display = 'none';
   document.getElementById('img').style.display = 'none';
   if ($('#hg').hasClass('hidden')) {

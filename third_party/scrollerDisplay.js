@@ -1,9 +1,9 @@
 // from Jim Vallandingham's scrollytelling with D3 code, with minor tweaks
 // https://github.com/vlandham/scroll_demo/blob/gh-pages/js/sections.js
 // (in particular, see lines 765-793)
+import { scroller } from './scroller.js'
 
-
-function scrollerDisplay(container, stepClass, activateFunctions, reverseFunctions) {
+export function scrollerDisplay(container, stepClass, activateFunctions, reverseFunctions) {
   var lastIndex = -1
   var activeIndex = 0
 

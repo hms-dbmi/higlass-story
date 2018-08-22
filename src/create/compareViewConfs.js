@@ -1,7 +1,7 @@
 globalVars.typeOfChange = function (viewConf1, viewConf2, url) { 
     viewConf1 = JSON.parse(viewConf1);
     viewConf2 = JSON.parse(viewConf2);
-    var diffsArr = odiff(viewConf1, viewConf2);
+    var diffsArr = odiff(viewConf1, viewConf2); // creates an array of differences between viewconfs
     var params = {};
     if(diffsArr.length === 0) {
         return ["none",params];

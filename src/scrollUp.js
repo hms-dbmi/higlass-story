@@ -1,4 +1,7 @@
-globalVars.reverse = function(json) { 
+import { loadViewConf } from './loadHg.js';
+import { addText, addImg, addYt, addVid, addHg } from './shiftFocus.js';
+
+export function reverse(json) { 
   var reloadInd = [];
 	var zoomInd = [];
 	var zoomReloadInd = [];
@@ -25,26 +28,26 @@ globalVars.reverse = function(json) {
     if(thisMedia.activate === "img") {
       let imgParams = thisMedia.activateParams;
       reverseFunctions[thisMedia.startPos] = function() {
-        globalVars.addImg(imgParams);
+        addImg(imgParams);
       };
     } else if (thisMedia.activate === "vid") {
       let vidParams = thisMedia.activateParams;
       reverseFunctions[thisMedia.startPos] = function() {
-        globalVars.addVid(vidParams);
+        addVid(vidParams);
       };
     } else if (thisMedia.activate === "yt") {
       let ytParams = thisMedia.activateParams;
       reverseFunctions[thisMedia.startPos] = function() {
-        globalVars.addYt(ytParams);
+        addYt(ytParams);
       };
     } else if (thisMedia.activate === "text") {
       let textParams = thisMedia.activateParams;
       reverseFunctions[thisMedia.startPos] = function() {
-        globalVars.addText(textParams);
+        addText(textParams);
       };
     } else {
       reverseFunctions[thisMedia.startPos] = function() {
-        globalVars.addHg();
+        addHg();
       };
     }
   }
@@ -56,7 +59,7 @@ globalVars.reverse = function(json) {
         if(!isEmpty(reverseFunctions[j])) {
           let imgParams = thisMedia.activateParams;
           reverseFunctions[j-1] = function() {
-            globalVars.addImg(imgParams);
+            addImg(imgParams);
           }
           break;
         }
@@ -66,7 +69,7 @@ globalVars.reverse = function(json) {
         if(!isEmpty(reverseFunctions[j])) {
           let vidParams = thisMedia.activateParams;
           reverseFunctions[j-1] = function() {
-            globalVars.addVid(vidParams);
+            addVid(vidParams);
           }
           break;
         }
@@ -76,7 +79,7 @@ globalVars.reverse = function(json) {
         if(!isEmpty(reverseFunctions[j])) {
           let ytParams = thisMedia.activateParams;
           reverseFunctions[j-1] = function() {
-            globalVars.addYt(ytParams);
+            addYt(ytParams);
           }
           break;
         }
@@ -86,7 +89,7 @@ globalVars.reverse = function(json) {
         if(!isEmpty(reverseFunctions[j])) {
           let textParams = thisMedia.activateParams;
           reverseFunctions[j-1] = function() {
-            globalVars.addText(textParams);
+            addText(textParams);
           }
           break;
         }
@@ -95,7 +98,7 @@ globalVars.reverse = function(json) {
       for(var j=thisMedia.startPos+1; j<json.textSections.length; j++) {
         if(!isEmpty(reverseFunctions[j])) {
           reverseFunctions[j-1] = function() {
-            globalVars.addHg();
+            addHg();
           }
           break;
         }
@@ -113,9 +116,9 @@ globalVars.reverse = function(json) {
 				if(mediaArr[j].activate == "zoom" || mediaArr[j].activate == "reload" || mediaArr[j].activate == "img" || mediaArr[j].activate == "vid" || mediaArr[j].activate == "yt" || mediaArr[j].activate == "text") { 
 					let zoomParams = mediaArr[i].activateParams.zoom;
 					reverseFunctions[mediaArr[j].startPos-1] = function() {
-						globalVars.addHg();
+						addHg();
 						for(var k=0; k<Object.keys(zoomParams).length; k++) {
-							globalVars.hgv.zoomTo(zoomParams[k][0], zoomParams[k][1], zoomParams[k][2], zoomParams[k][3], zoomParams[k][4], 0);
+							hgv.zoomTo(zoomParams[k][0], zoomParams[k][1], zoomParams[k][2], zoomParams[k][3], zoomParams[k][4], 0);
 						}
 					}
 					break;
@@ -138,8 +141,8 @@ globalVars.reverse = function(json) {
     for(var j=reloadInd[i+1]-1; j>=0; j--) { 
       if(mediaArr[j].activate === "reload" || mediaArr[j].activate === "zoom") {
         reverseFunctions[mediaArr[j+1].startPos-1] = function() {
-          globalVars.addHg();
-          globalVars.loadViewConf(loadUrl);
+          addHg();
+          loadViewConf(loadUrl);
         }
         break;
       }
@@ -152,9 +155,9 @@ globalVars.reverse = function(json) {
 			if(mediaArr[reloadInd[j]].startPos < mediaArr[zoomInd[i]].startPos) {
 				let unZoomParams = mediaArr[reloadInd[j]].activateParams.zoom; 
 				reverseFunctions[mediaArr[reloadInd[j]+1].startPos-1] = function() { // unzoom 
-					globalVars.addHg();
+					addHg();
 					for(var k=0; k<Object.keys(unZoomParams).length; k++) { 
-						globalVars.hgv.zoomTo(unZoomParams[k][0], unZoomParams[k][1], unZoomParams[k][2], unZoomParams[k][3], unZoomParams[k][4], 0);
+						hgv.zoomTo(unZoomParams[k][0], unZoomParams[k][1], unZoomParams[k][2], unZoomParams[k][3], unZoomParams[k][4], 0);
 					}
 				}
 				break;
@@ -168,8 +171,8 @@ globalVars.reverse = function(json) {
       if(mediaArr[j].activate === "zoom") {
         let loadZoomUrl = mediaArr[j].activateParams.url; 
         reverseFunctions[mediaArr[j+1].startPos-1] = function() { //// BUG: load overrides zoom
-        	globalVars.addHg(); 
-          globalVars.loadViewConf(loadZoomUrl);
+        	addHg(); 
+          loadViewConf(loadZoomUrl);
         }
         break;
       } else if (mediaArr[j].activate === "reload") {
