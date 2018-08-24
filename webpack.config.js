@@ -9,6 +9,7 @@ module.exports = {
   },
   entry: {
     create: './src/create/create.js',
+    view: './src/view/view.js'
   },
   module: {
     rules: [{

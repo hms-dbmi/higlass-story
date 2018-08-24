@@ -1,4 +1,4 @@
-import * as hglib from 'higlass';
+import {createHgComponent} from 'higlass'
 
 export var hgv = null;
 
@@ -31,14 +31,14 @@ var getJSON = function(response) {
 }
 
 var createHgv = function(response) { 
-  hgv = hglib.createHgComponent( // creates the view
+  hgv = createHgComponent( // creates the view
     document.getElementById('hg'),
     allowExport(response),
     { bounded: true }
   );
 }
 
-function setViewConf(response) {
+var setViewConf = function(response) {
   const p = hgv.setViewConfig(response);
   p.then(() => {
     
