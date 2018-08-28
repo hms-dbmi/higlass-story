@@ -5,6 +5,7 @@ export var hgv = null;
 export function loadHg(viewConfigUrl) {
   fetch(viewConfigUrl)
     .then(getJSON, handleErrors)
+    .then(removeHTTP, handleErrors)
     .then(createHgv, handleErrors)
     .then(null, showError); // error handling
 }
@@ -12,6 +13,7 @@ export function loadHg(viewConfigUrl) {
 export function loadViewConf(viewConfigUrl) {
   fetch(viewConfigUrl)
     .then(getJSON, handleErrors)
+    .then(removeHTTP, handleErrors)
     .then(setViewConf, handleErrors)
     .then(null, showError);
 }
@@ -48,4 +50,10 @@ var setViewConf = function(response) {
 var allowExport = function (viewConf) { 
   viewConf.exportViewUrl = "//higlass.io" + viewConf.exportViewUrl;
   return viewConf;
+}
+
+var removeHTTP = function(response) {
+  var viewConfStr = JSON.stringify(response);
+  viewConfStr = viewConfStr.replace(/(https?:|)\/\//g,'//')
+  return JSON.parse(viewConfStr);
 }
