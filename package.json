@@ -14,7 +14,7 @@
     "babel-preset-react": "^6.24.1",
     "higlass": "^1.1.5",
     "jquery-sortable": "^0.9.13",
-    "odiff": "^1.1.0"
+    "odiff": "^1.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

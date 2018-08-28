@@ -1,10 +1,7 @@
-import { openFile } from './loadJSON.js';
-
+import { openFile, openModal } from './loadJSON.js';
 
 $(document).ready(function (){ 
-  $("#inputJSON").click(function(){
-    $("#jsonModal").modal();
-  });
+  openModal();
   document.getElementById('submitJSON').addEventListener('click', openFile, false);
 })
 

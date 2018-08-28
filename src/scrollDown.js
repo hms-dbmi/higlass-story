@@ -1,4 +1,4 @@
-import { loadViewConf } from './loadHg.js'
+import { hgv, loadViewConf } from './loadHg.js'
 import { addText, addImg, addYt, addVid, addHg } from './shiftFocus.js';
 
 export function activate(json) { 

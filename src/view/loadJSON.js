@@ -5,8 +5,13 @@ import { scrollerDisplay } from '../../third_party/scrollerDisplay.js'
 
 var details = null;
 
+export function openModal() {
+  $("#inputJSON").click(function(){
+    $("#jsonModal").modal();
+  });
+}
+
 export function openFile(event) {
-  console.log("hi")
   var input = document.getElementById("userFile");
 
   var reader = new FileReader();
