@@ -1,6 +1,9 @@
-import { createHgComponent } from 'higlass';
+import { openFile, openModal } from './loadJSON.js';
 
-window.globalVars = {}; // global Vars: createHg, details, hgv, loadHg, loadViewConf, 
-                        // loadViewConfAndZoom, reverse, activate
+$(document).ready(function (){ 
+  openModal();
+  document.getElementById('submitJSON').addEventListener('click', openFile, false);
+})
 
-globalVars.createHg = createHgComponent;
+
+

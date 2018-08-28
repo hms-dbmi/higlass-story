@@ -8,7 +8,6 @@ module.exports = {
     path: __dirname + '/dist'
   },
   entry: {
-    home: './src/home.js',
     create: './src/create/create.js',
     view: './src/view/view.js'
   },

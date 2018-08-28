@@ -8,7 +8,7 @@
  * to.
  *
  */
-function scroller() {
+export function scroller() {
   var container = d3.select('body');
   // event dispatcher
   var dispatch = d3.dispatch('active', 'progress');
