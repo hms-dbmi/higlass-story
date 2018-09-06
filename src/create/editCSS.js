@@ -1,5 +1,11 @@
 import { json } from './jsonModal.js';
 
+/**
+* Append CSS style rules to the head of the document so 
+* that they are loaded last
+* 
+* @param   {String} rule - CSS entered by the user as text
+*/
 export function cssEngine(rule) {
   var css = document.createElement('style'); // Creates <style></style>
   css.className = 'customCSS';
@@ -9,12 +15,20 @@ export function cssEngine(rule) {
   document.getElementsByTagName("head")[0].appendChild(css); // Specifies where to place the css
 }
 
+/**
+* When "Edit CSS" button is clicked, open corresponding modal
+*/
 export function openCSSModal() {
   $("#editCSS").click(function(){
     $("#cssModal").modal();
   });
 }
 
+/**
+* When "Reset CSS" button is clicked, reset all styles back
+* to default in the page and the JSON object, and reset inputs
+* in modal back to default values
+*/
 export function removeCSS() {
   $(".modal-footer").on('click', '#removeCSS', function() {
     json.fontFamily = "Helvetica Neue";
@@ -40,6 +54,10 @@ export function removeCSS() {
   });
 }
 
+/**
+When "Submit CSS" button is clicked, submit all inputs to 
+call their respective functions to add styles
+*/
 export function editCSS() {
   $(".modal-footer").on('click', '#submitCSS', function() {
     $( "#selFont" ).submit();
@@ -54,30 +72,46 @@ export function editCSS() {
   	a.innerHTML = 'Download JSON';
   });
 
+  /**
+  * Append style to head to change font; update JSOn object 
+  */
   $(".modal-body").on('submit', '#selFont', function( event ) {
     $("<style/>", {text: ".inlineText {font-family: " + selFont.value + ";}"}).appendTo('head');
   	json.fontFamily = selFont.value;
   	event.preventDefault();
   });
 
+  /**
+  * Append style to head to change font color; change JSOn object 
+  */
   $(".modal-body").on('submit', '#selFontColor', function( event ) {
   	$("<style/>", {text: ".inlineText {color: " + selFontColor.value + ";}"}).appendTo('head');
   	json.fontColor = selFontColor.value;
   	event.preventDefault();
   });
 
+  /**
+  * Append style to head to change font size; change JSOn object 
+  */
   $(".modal-body").on('submit', '#selFontSize', function( event ) {
   	$("<style/>", {text: ".inlineText {font-size: " + selFontSize.value/16 + "rem;}"}).appendTo('head');
   	json.fontSize = selFontSize.value;
   	event.preventDefault();
   });
 
+  /**
+  * Append style to head to change background color; change JSOn object 
+  */
   $(".modal-body").on('submit', '#selBgColor', function( event ) {
   	document.body.style.backgroundColor = selBgColor.value;
   	json.bgColor = selBgColor.value;
   	event.preventDefault();
   });
 
+  /**
+  * Call cssEngine(rule) to add user's styles from text input
+  * to the page, and update JSON object 
+  */
   $(".modal-body").on('submit', '#cssText', function( event ) {
     cssEngine(cssText.value);
     json.css = document.getElementById('cssText').value;

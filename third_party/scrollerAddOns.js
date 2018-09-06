@@ -1,3 +1,7 @@
+/** from Jim Vallandingham's scrollytelling with D3 code
+* https://github.com/vlandham/scroll_demo/blob/gh-pages/js/scroller.js
+*/
+
 // highlights the specified groups and turns everything else off
 export function highlight_svg_groups(group_names) {
 

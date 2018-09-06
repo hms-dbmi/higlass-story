@@ -1,5 +1,6 @@
-// from Jim Vallandingham's scrollytelling with D3 code
-// https://github.com/vlandham/scroll_demo/blob/gh-pages/js/scroller.js
+/** from Jim Vallandingham's scrollytelling with D3 code
+* https://github.com/vlandham/scroll_demo/blob/gh-pages/js/scroller.js
+*/
 
 /**
  * scroller - handles the details

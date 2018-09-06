@@ -4,14 +4,26 @@ import { mmd } from '../../third_party/mmd.min.js';
 
 export function editContent() {
 
+  /**
+   * When "Edit Content" button is clicked, open 
+   * corresponding modal 
+   */
   $("#editContent").click(function(){
     $("#textModal").modal();
   });
 
+  /**
+   * When "Submit" button is clicked, 
+   * submit text box input to call function to
+   * change contents of section
+   */
   $(".modal-footer").on('click', '#submitEdit', function() {
     $("#newText").submit();
   });
 
+  /**
+   * Change contents of section in the page and the JSON object
+   */
   $(".modal-body").on('submit', '#newText', function() {
     if(selSection.value <= json.textSections.length) {
       json.textSections[selSection.value-1] = mmd(newText.value);

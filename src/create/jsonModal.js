@@ -4,6 +4,7 @@ import { activate } from '../scrollDown.js'
 import { reverse } from '../scrollUp.js'
 import { scrollerDisplay } from '../../third_party/scrollerDisplay.js'
 
+/** {Object} keeps track of the details of the report */
 export var json = {
   fontFamily: "Helvetica Neue",
   fontColor: "black",
@@ -15,12 +16,21 @@ export var json = {
   mediaSections: []
 }
 
+/**
+* When "Load Report" button is clicked, open corresponding modal
+*/
 export function openJSONModal() {
   $("#inputJSON").click(function(){
     $("#jsonModal").modal();
   });
 }
 
+/**
+* When user submits a JSON file in the modal, read in the file and call loadJSON(obj)
+* to populate the report using the information in the file
+*
+* @param   {Event} event - clicking "submit" in the JSON modal
+*/
 export function openFile (event) {
   var input = document.getElementById("userFile");
 
@@ -32,6 +42,11 @@ export function openFile (event) {
   reader.readAsText(input.files[0]);
 };
 
+/**
+* Populate report using user-inputted JSON file
+*
+* @param   {Object} obj - content of JSON file
+*/
 var loadJSON = function(obj) { 
   sections.innerHTML = "";
   document.getElementById('placeholder').style.display = 'none';
@@ -75,6 +90,11 @@ var loadJSON = function(obj) {
   download(json);
 }
 
+/**
+* Change the look of the report using the attributes in the JSON file
+*
+* @param   {Object} json - content of JSON file
+*/
 var setCSS = function(json) {
   document.getElementById('scrollingText').style.fontFamily = json.fontFamily;
   document.getElementById('scrollingText').style.color = json.fontColor;

@@ -3,14 +3,26 @@ import { reverse } from '../scrollUp.js';
 import { loadHg } from '../loadHg.js';
 import { scrollerDisplay } from '../../third_party/scrollerDisplay.js'
 
+/**
+* {Object} contains the contents of JSON file inputted by user
+*/
 var details = null;
 
+/**
+* When "Load Report" button is clicked, open corresponding modal
+*/
 export function openModal() {
   $("#inputJSON").click(function(){
     $("#jsonModal").modal();
   });
 }
 
+/**
+* When user submits a JSON file in the modal, read in the file and call loadJSON(obj)
+* to populate the report using the information in the file
+*
+* @param   {Event} event - clicking "submit" in the JSON modal
+*/
 export function openFile(event) {
   var input = document.getElementById("userFile");
 
@@ -23,6 +35,11 @@ export function openFile(event) {
   reader.readAsText(input.files[0]);
 };
 
+/**
+* Populate report using user-inputted JSON file
+*
+* @param   {Object} obj - content of JSON file
+*/
 var loadJSON = function(json) { 
   sections.innerHTML = "";
   var json = JSON.parse(json);
@@ -38,6 +55,12 @@ var loadJSON = function(json) {
   setCSS();
 }
 
+/**
+* Append CSS style rules to the head of the document so 
+* that they are loaded last
+* 
+* @param   {String} rule - CSS entered by the user as text
+*/
 function cssEngine(rule) {
   var css = document.createElement('style'); // Creates <style></style>
   css.className = 'customCSS';
@@ -47,6 +70,11 @@ function cssEngine(rule) {
   document.getElementsByTagName("head")[0].appendChild(css); // Specifies where to place the css
 }
 
+/**
+* Change the look of the report using the attributes in the JSON file
+*
+* @param   {Object} json - content of JSON file
+*/
 function setCSS() {
   document.getElementById('scrollingText').style.fontFamily = details.fontFamily;
   document.getElementById('scrollingText').style.color = details.fontColor;
