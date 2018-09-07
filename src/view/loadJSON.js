@@ -59,7 +59,7 @@ var loadJSON = function(json) {
 * Append CSS style rules to the head of the document so 
 * that they are loaded last
 * 
-* @param   {String} rule - CSS entered by the user as text
+* @param   {String} rule - CSS rules from file, originally inputted by user as text
 */
 function cssEngine(rule) {
   var css = document.createElement('style'); // Creates <style></style>

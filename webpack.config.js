@@ -9,7 +9,8 @@ module.exports = {
   },
   entry: {
     create: './src/create/create.js',
-    view: './src/view/view.js'
+    view: './src/view/view.js',
+    higlasspaper: './src/examples/higlasspaper.js'
   },
   module: {
     rules: [{

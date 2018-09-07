@@ -1,34 +1,5 @@
 <!DOCTYPE html>
 
-<!-- TODO server: (////)
-* error handling for edge case: throws error if user closes a view that later needs to be zoomed in
-* fix bug: main.js:73439 Uncaught TypeError: Cannot read property 'trackDefObjects' of null
-* add progressive scrolling effects with updateFunctions (./src/conductor.js)
-  * natural zooming
-  * fade in/out
-* allow focus on just text or just HG (remember aspect ratio)
-* css: more space b/w sections
-* change method of implementing closure within loops for src/scrollUp.js
-* after dragging, media thumbnails of sections should change
--->
-
-<!-- TODO ui: (////)
-* edit section content 
-  * edit main view
-  * edit inline media (other than text)
-* skip to sections
-* tooltips for CSS to expose IDs and classes
-* read in uploaded JSON file instead of using textbox
--->
-
-<!-- TODO before next commit: (////)
-* css tooltips
--->
-
-<!-- In this commit: 
-* fixed css 
--->
-
 <html class="no-js" lang="en">
 <head>
   <meta charset="utf-8"> 
@@ -54,6 +25,7 @@
   <h4>Select mode: </h4>
   <a href="./create.html" class="btn btn-info"><i class="fa fa-pencil-alt fa-lg" aria-hidden="true"></i>&nbsp; Write</a>
   <a href="./view.html" class="btn btn-info"><i class="fa fa-eye fa-lg" aria-hidden="true"></i>&nbsp; View</a>
+  <a href="./examples.html" class="btn btn-info"><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp; Examples</a>
 </div>
 </body>
 
