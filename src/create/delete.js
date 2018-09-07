@@ -10,7 +10,7 @@ import { scrollerDisplay } from '../../third_party/scrollerDisplay.js'
  * actions
  */
 export function deleteSections() {
-  $(document).on("click", ".fa-clickable", function() { 
+  $(document).on("click", ".fa-times", function() { 
     var num = $(this).parent().parent().index();
     sections.removeChild(sections.children[num]);
     json.textSections.splice(num, 1);

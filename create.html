@@ -144,16 +144,57 @@
         </div>
         <div class="modal-body">
 
-          <div class="form-group">
-            <label for="selSection">Enter number (1-n) of the section to be edited: </label>
-            <div class="col-5">
-              <input class="form-control" type="number" value="" id="selSection">
-            </div>
-          </div>
+          <div id="editOptions">
+            <h3>Replace Section Content</h3>
+            <label for="selEdit">What do you want to add? </label>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selEdit">
+              <option value="choose" selected>Select...</option>
+              <option value="text">Text</option>
+              <option value="img">Image</option>
+              <option value="yt">Youtube Video</option>
+              <option value="vid">Video</option>
+            </select>
 
-          <div class="form-group">
-            <label for="newText">Input new text here: </label>
-            <textarea class="form-control" id="newText" rows="10" placeholder="Input text"></textarea>
+            <div id="textEdit">
+              <label for="newText">What do you want it to say? 
+                <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" class="tooltipIcon"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="This textbox accepts Markdown. Click for information on how to format Markdown text."></span></a>
+              </label>
+              <div class="form-group">
+                <textarea class="form-control" id="newText" rows="3" placeholder="Enter section text"></textarea>
+              </div>
+            </div>
+
+            <div id="imgEdit">
+              <label for="newImgUrl">What image do you want to insert? 
+                <a href="https://imgbb.com" target="_blank" class="tooltipIcon"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="Include an image in your story by providing a link address to the image. For local images, please first upload them to an image hosting site like imgbb.com to obtain a URL."></span></a>
+              </label>
+              <input type="url" class="url-type-styled-input" id="newImgUrl" placeholder="Enter image URL">
+              <div class="form-group">
+                <textarea class="form-control" id="newImgText" rows="3" placeholder="Enter a caption for your image (optional)"></textarea>
+              </div>
+            </div>
+
+            <div id="ytEdit">
+              <div>
+                <label for="newYtUrl">https://www.youtube.com/embed/</label>
+                <input type="text" id="newYtUrl" placeholder="Enter video ID">
+                <span class="glyphicon glyphicon-question-sign tooltipIcon" data-toggle="tooltip" data-html="true" data-original-title="The video ID is the combination of numbers and letters after the equals sign (=) at the end of the video URL. <br> <br> For example, for the Youtube video at the URL https://www.youtube.com/watch?v=8FW6gOx5lPI, the ID is 8FW6gOx5lPI."></span>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" id="newYtText" rows="3" placeholder="Enter a caption for your Youtube video (optional)"></textarea>
+              </div>
+            </div>
+
+            <div id="vidEdit">
+              <label for="newVidUrl">What video do you want to insert?
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats" target="_blank"><span class="glyphicon glyphicon-question-sign tooltipIcon" data-toggle="tooltip" data-html="true" data-original-title="Include a video in your story by providing a video address. For local videos, upload them using a video hosting site to obtain a video address. Click for a list of which video formats are supported by which browsers."></span></a>
+              </label>
+              <input type="text" id="newVidUrl" placeholder="Enter video URL">
+              <div class="form-group">
+                <textarea class="form-control" id="newVidText" rows="3" placeholder="Enter a caption for your video (optional)"></textarea>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -184,8 +225,6 @@
         <label>Click to load in an existing report: </label>
         <button type="button" class="btn btn-info" id="inputJSON"><i class="fa fa-file-alt" aria-hidden="true"></i>&nbsp; Load report</button>
 
-        <label>Click to edit the contents of an existing section: </label>
-        <button type="button" class="btn btn-info" id="editContent"><i class="fa fa-pencil-alt" aria-hidden="true"></i>&nbsp; Edit Content</button>
       </div>
     </div>
 
