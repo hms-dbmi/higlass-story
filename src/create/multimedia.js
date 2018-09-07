@@ -1,3 +1,6 @@
+/**
+* When user chooses to add an image, change visibility of input options to only show those inputs
+*/
 var selImg = function() {
   if (!$('#hg').hasClass('hidden')) {
     $('#hg').toggleClass('hidden');
@@ -17,6 +20,9 @@ var selImg = function() {
   document.getElementById('ytMedia').style.display = 'none';
 }
 
+/**
+* When user chooses to add a Youtube video, change visibility of input options to only show those inputs
+*/
 var selYt = function() {
   if (!$('#hg').hasClass('hidden')) {
     $('#hg').toggleClass('hidden');
@@ -36,6 +42,9 @@ var selYt = function() {
   document.getElementById('ytMedia').style.display = 'none';
 }
 
+/**
+* When user chooses to add a video, change visibility of input options to only show those inputs
+*/
 var selVid = function() {
   if (!$('#hg').hasClass('hidden')) {
     $('#hg').toggleClass('hidden');
@@ -55,6 +64,9 @@ var selVid = function() {
   document.getElementById('ytMedia').style.display = 'none';
 }
 
+/**
+* When user chooses to add a HiGlass view, change visibility of input options to only show those inputs
+*/
 var selHg = function() {
   if ($('#hg').hasClass('hidden')) {
     $('#hg').toggleClass('hidden');
@@ -73,6 +85,9 @@ var selHg = function() {
   document.getElementById('ytMedia').style.display = 'none';
 }
 
+/**
+* When user chooses to add a text element, change visibility of input options to only show those inputs
+*/
 var selText = function() {
   if (!$('#hg').hasClass('hidden')) {
     $('#hg').toggleClass('hidden');
@@ -91,6 +106,9 @@ var selText = function() {
   document.getElementById('ytMedia').style.display = 'none';
 }
 
+/**
+* Only display inputs needed for the type of element the user wants to add
+*/
 var selChoose = function() {
   if (!$('#hg').hasClass('hidden')) {
     $('#hg').toggleClass('hidden');
@@ -108,6 +126,10 @@ var selChoose = function() {
   document.getElementById('cancel').style.display = 'none';
 }
 
+/**
+* When user selects a type of story element to add, call a function to change the visibility 
+* of the inputs to only show what is needed
+*/
 export function changeSelDisplay() { 
   $(document).ready(function (){ 
   	$('#selDisplay').change(function() {

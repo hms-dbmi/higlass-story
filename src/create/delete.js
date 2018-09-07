@@ -4,9 +4,13 @@ import { reverse } from '../scrollUp.js';
 import { activate } from '../scrollDown.js';
 import { scrollerDisplay } from '../../third_party/scrollerDisplay.js'
 
-// DELETE
+/**
+ * When the X icon in the section is clicked, delete that section
+ * from the page and the JSON object and re-calculate scrolling
+ * actions
+ */
 export function deleteSections() {
-  $(document).on("click", ".fa-clickable", function() { 
+  $(document).on("click", ".fa-times", function() { 
     var num = $(this).parent().parent().index();
     sections.removeChild(sections.children[num]);
     json.textSections.splice(num, 1);

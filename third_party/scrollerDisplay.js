@@ -1,6 +1,6 @@
-// from Jim Vallandingham's scrollytelling with D3 code, with minor tweaks
-// https://github.com/vlandham/scroll_demo/blob/gh-pages/js/sections.js
-// (in particular, see lines 765-793)
+/** from Jim Vallandingham's scrollytelling with D3 code
+* https://github.com/vlandham/scroll_demo/blob/gh-pages/js/scroller.js
+*/
 import { scroller } from './scroller.js'
 
 export function scrollerDisplay(container, stepClass, activateFunctions, reverseFunctions) {

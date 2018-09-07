@@ -1,5 +1,14 @@
 import odiff from 'odiff';
 
+/**
+ * Extract JSON body content from response
+ *
+ * @param   {String} viewConf1 - metadata of previous view config
+ * @param   {String} viewConf2 - metadata of next view config
+ * @param   {String} url - URL at which the next view config can be retrieved
+ * @return  {Array} return array detailing the type of change (none/reload/zoom)
+ * and the information relevant to each change (zoom coordinates and URL)
+ */
 export function typeOfChange(viewConf1, viewConf2, url) { 
     viewConf1 = JSON.parse(viewConf1);
     viewConf2 = JSON.parse(viewConf2);

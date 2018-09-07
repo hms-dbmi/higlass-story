@@ -3,7 +3,7 @@ import { loadHg } from '../loadHg.js';
 import { createDownload, selReset, createText, createImg, createYt, createVid, addMedia, submtitHgUrl, swap } from './editHTML.js';
 import { openFile, openJSONModal } from './jsonModal.js';
 import { openCSSModal, removeCSS, editCSS } from './editCSS.js';
-import { editContent } from './editContent.js';
+import { editContent, changeSelEdit } from './editContent.js';
 import { sortable } from '../../third_party/jquery-sortable.js';
 import { deleteSections } from './delete.js';
 
@@ -34,6 +34,8 @@ $(document).ready(function (){
   editCSS();
 
   deleteSections();
+  editContent();
+  changeSelEdit();
 
   $('[data-toggle="tooltip"]').tooltip({placement:'right'}); 
 

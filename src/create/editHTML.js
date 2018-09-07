@@ -6,12 +6,20 @@ import { json } from './jsonModal.js';
 import { mmd } from '../../third_party/mmd.min.js';
 import { scrollerDisplay } from '../../third_party/scrollerDisplay.js'
 
+/** {String} View config as string of previous HiGlass view that is being changed */
 var prevViewConf = null;
+/** {String[]} Array of all the URLs at which the view configs of the story can be retrieved */
 var viewConfUrls = [];
+/** {Function[]} Array of functions to be triggered as the user scrolls down */
 var activateFunctions = [];
+/** {Function[]} Array of functions to be triggered as the user scrolls up */
 var reverseFunctions = [];
 
-// drag and drop initializer
+/**
+* Enables drag and drop functionality. When a section is dragged and dropped, change the 
+* CSS of the page and call sort(startDrag, endDrag) to update the JSON object. Does not 
+* change the order that media appears.
+*/
 export function swap() {
   var startDrag = 0;
   var endDrag = 0;
@@ -35,6 +43,14 @@ export function swap() {
 }
 
 // sort text sections after drag and drop
+/**
+* Called when a section is dragged and dropped. If section is dropped in a new
+* location, update JSON object to reflect new order of sections. Does not 
+* change the order that media appears.
+* 
+* @param   {int} startDrag - original index of section being dragged 
+* @param   {int} endDrag - index of where the section being dragged is dropped
+*/
 var sort = function(startDrag, endDrag) { 
   if(startDrag !== endDrag) {
     var tempSections = [];
@@ -58,8 +74,12 @@ var sort = function(startDrag, endDrag) {
   }
 }
 
+/**
+* Create a link with a button appearance and add it to page
+*
+* Used to download a JSON file with the details of the story.
+*/
 export function createDownload() {
-  // DOWNLOAD: initialize link
   var a = document.createElement('a');
   a.className = "btn btn-info";
   a.id = "downloadLink";
@@ -67,6 +87,11 @@ export function createDownload() {
   container.appendChild(a);
 }
 
+/**
+* Update download link with the most recent JSON object.
+*
+* @param   {Object} json - JSON object containing the details of the story
+*/
 export function download(json) {
   var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
   downloadLink.href = 'data:' + data;
@@ -75,7 +100,10 @@ export function download(json) {
   downloadDiv.style.display = 'block';
 }
 
-// reset input values back to default
+/**
+* Reset the story element input box back to the default
+* (hiding inputs specific to media type and clearing text boxes)
+*/
 export function selReset(){
   document.getElementById('imgOptions').style.display = 'none';
   document.getElementById('hgOptions').style.display = 'none';
@@ -95,12 +123,20 @@ export function selReset(){
   $("#selDisplay").val('choose').change();
 }
 
+/**
+* Returns the number of sections on the page
+*
+@return   {int} Number of sections on the page
+*/
 var getNumSections = function() {
   var numSections = sections.querySelectorAll('.step').length;
   return numSections;
 }
 
-// HIGLASS
+/**
+* Call typeOfChange(viewConf1, viewConf2, url) to calculate
+* change and use to set animation functions 
+*/
 var getHg = function() {
   if(getNumSections() > json.textSections.length) {
     json.textSections.push("");
@@ -174,7 +210,9 @@ var getHg = function() {
     .catch((err) => { console.error('Something did not work. Sorry', err); });
 }
 
-// Add to report
+/**
+* Use inputs to create new media
+*/
 export function addMedia() {
   if($('#selDisplay').val()==='text') {
     $( "#sectionText" ).submit();  
@@ -191,6 +229,12 @@ export function addMedia() {
   selReset();
 }
 
+/**
+* Convert HiGlass website base URL entered by user to HiGlass API 
+* base URL, then load view config from that URL
+*
+* @param   {Event} event - clicking submitHgUrl
+*/
 export function submitHgUrl(event) {
   const baseApiUrl = 'https://higlass.io/api/v1/viewconfs/?d=';
   const regExBaseHgUrl = /http:\/\/higlass.io\/app\/\?config=/;
@@ -199,7 +243,11 @@ export function submitHgUrl(event) {
   event.preventDefault();
 }
 
-// TEXT
+/**
+* add a text element to either the section or the main view
+*
+* @param   {Event} event - submit text input
+*/
 export function createText(event) {
   const textParams = mmd(sectionText.value);
   if($('input[id=selTextMain]').is(":checked")) {
@@ -215,7 +263,7 @@ export function createText(event) {
       "activateParams": textParams,
       "startPos": getNumSections(),
     } 
-    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Fast_text.png/330px-Fast_text.png'></div></div></section></li>"; 
+    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><i class='fa fa-pencil-alt fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Fast_text.png/330px-Fast_text.png'></div></div></section></li>"; 
     json.mediaSections.push(textObj);
   } else {
     if(getNumSections() > json.textSections.length) { // fill empty section with content
@@ -223,7 +271,7 @@ export function createText(event) {
         + "</div>" + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
     } else { // create new section of content
       activateFunctions.push( function() {});
-      sections.innerHTML += "<li><section class='step'><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div class='inlineText sectionContent'><h4>Section Content: </h4>" + textParams + "</div></section></li>"; 
+      sections.innerHTML += "<li><section class='step'><i class='fa fa-times fa-clickable' aria-hidden='true'></i><i class='fa fa-pencil-alt fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='inlineText sectionContent'><h4>Section Content: </h4>" + textParams + "</div></div></section></li>"; 
     }
     json.textSections.push(textParams);
   }
@@ -232,7 +280,11 @@ export function createText(event) {
   scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions); // enable scrolling functions
 }
 
-// IMAGE
+/**
+* add an image element to either the section or the main view
+*
+* @param   {Event} event - submit image input
+*/
 export function createImg(event) {
   const imgParams = [imgUrl.value, mmd(imgText.value)];
   if($('input[id=selImgMain]').is(":checked")) {
@@ -251,7 +303,7 @@ export function createImg(event) {
       "activateParams": imgParams,
       "startPos": getNumSections(),
     };
-    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src=\"" + imgUrl.value + "\"></div></div></section></li>"; 
+    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><i class='fa fa-pencil-alt fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src=\"" + imgUrl.value + "\"></div></div></section></li>"; 
     json.mediaSections.push(imgObj);
   } else {
     var imgHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4><img class='inlineImg' src=\"" + imgUrl.value + "\">" + "<div class='caption'>" + imgParams[1] + "</div></div>";
@@ -259,7 +311,7 @@ export function createImg(event) {
       sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = imgHTML + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
     } else { // create new section of content
       activateFunctions.push( function() {});
-      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + imgHTML + "</div></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><i class='fa fa-pencil-alt fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + imgHTML + "</div></section></li>"; 
     }
     json.textSections.push(imgHTML);
   }
@@ -269,7 +321,11 @@ export function createImg(event) {
   document.getElementById('imgText').value = '';
 }
 
-// YOUTUBE VIDEO
+/**
+* add a Youtube video element to either the section or the main view
+*
+* @param   {Event} event - submit Youtube video input
+*/
 export function createYt(event) {
   const ytParams = [ytUrl.value, mmd(ytText.value)];
   if($('input[id=selYtMain]').is(":checked")) {
@@ -287,7 +343,7 @@ export function createYt(event) {
           "activateParams": ytParams,
           "startPos": getNumSections(),
     };
-    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://img.youtube.com/vi/" + ytUrl.value + "/default.jpg'></div></div></section></li>"; 
+    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><i class='fa fa-pencil-alt fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://img.youtube.com/vi/" + ytUrl.value + "/default.jpg'></div></div></section></li>"; 
     json.mediaSections.push(ytObj);
   } else {
     var ytHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4><iframe class='inlineYt' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen src='https://www.youtube.com/embed/" 
@@ -296,7 +352,7 @@ export function createYt(event) {
       sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = ytHTML + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
     } else { // create new section of content
       activateFunctions.push( function() {});
-      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + ytHTML + "</div></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><i class='fa fa-pencil-alt fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + ytHTML + "</div></section></li>"; 
     }
     json.textSections.push(ytHTML);
   }
@@ -306,8 +362,11 @@ export function createYt(event) {
   document.getElementById('ytText').value = '';
 }
 
-// VIDEO
-export function createVid(event) {
+/**
+* add a video element to either the section or the main view
+*
+* @param   {Event} event - submit video input
+*/export function createVid(event) {
   const vidParams = [vidUrl.value, mmd(vidText.value)];
   if($('input[id=selVidMain]').is(":checked")) {
     if(getNumSections() > json.textSections.length) {
@@ -324,7 +383,7 @@ export function createVid(event) {
           "activateParams": vidParams,
           "startPos": getNumSections(),
     };
-    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Video_-_The_Noun_Project.svg/512px-Video_-_The_Noun_Project.svg.png'></div></div></section></li>"; 
+    sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><i class='fa fa-pencil-alt fa-clickable' aria-hidden='true'></i><div id='editableSection'><div class='sectionThumbnail'><h4>Main Content: <i class='fa fa-arrow-right' aria-hidden='true'></i></h4><img class='thumbnail' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Video_-_The_Noun_Project.svg/512px-Video_-_The_Noun_Project.svg.png'></div></div></section></li>"; 
     json.mediaSections.push(vidObj);
   } else {
     var vidHTML = "<div class='inlineText sectionContent'><h4>Section Content: </h4><video class='inlineVid' width='560' height='315' autoplay src='" + vidUrl.value + "' type='video/mp4'></video>" + "<div class='caption'>" + vidParams[1] + "</div></div>";
@@ -332,7 +391,7 @@ export function createVid(event) {
       sections.lastElementChild.lastElementChild.lastElementChild.innerHTML = vidHTML + sections.lastElementChild.lastElementChild.lastElementChild.innerHTML;
     } else { // create new section of content
       activateFunctions.push( function() {});
-      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + vidHTML + "</div></section></li>"; 
+      sections.innerHTML += "<li><section class=\"step\"><i class='fa fa-times fa-clickable' aria-hidden='true'></i><i class='fa fa-pencil-alt fa-clickable' aria-hidden='true'></i><div id='editableSection'>" + vidHTML + "</div></section></li>"; 
     }
     json.textSections.push(vidHTML);
   }
