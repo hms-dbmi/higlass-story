@@ -1,0 +1,19 @@
+#higlassPaperImg {
+  max-height:100%;
+  width:100%;
+  border: 1px solid #eee;
+}
+
+.exampleTitle {
+  color:#666666; 
+  font-size:24px; 
+  text-decoration:underline;
+}
+
+.example {
+  max-width:25%;
+}
+
+.examples {
+  margin:5%;
+}
