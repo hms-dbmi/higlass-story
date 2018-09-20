@@ -209,6 +209,58 @@
     </div>
   </div>
 
+  <div class="modal fade" id="titlesModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create Section Titles</h4>
+        </div>
+        <div class="modal-body">
+          <form id="titlesForm">
+
+            <div class="row">
+              <div class="col-sm-9">
+                <label> Section Title </label>
+              </div>
+              <div class="col-sm-3">
+                <label> Section Number </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-9">
+                <input type="text" class="form-control titleRow" placeholder="Enter title here">
+              </div>
+              
+              <div class="col-sm-3">
+                <input type="number" class="form-control titleRow" placeholder="#">
+              </div>
+
+            </div>
+          </form>
+
+          <div id="addTitleRowDiv">
+            <a class="btn icon-btn btn-success" id="addTitleRow" href="#">
+              <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+              Add Row
+            </a>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="submitTitles">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+
   <div class="wrapper">
 
     <!-- Buttons -->
@@ -224,6 +276,9 @@
 
         <label>Click to load in an existing report: </label>
         <button type="button" class="btn btn-info" id="inputJSON"><i class="fa fa-file-alt" aria-hidden="true"></i>&nbsp; Load report</button>
+
+        <label>Click to set titles for sections the user can skip to: </label>
+        <button type="button" class="btn btn-info" id="inputTitles"><i class="fa fa-fast-forward" aria-hidden="true"></i>&nbsp; Set Titles</button>
 
       </div>
     </div>
@@ -328,6 +383,12 @@
       <!-- Media -->
       <div id="media"> 
       
+        <div id="selSectionDiv">
+          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selSection">
+            <option value="choose" selected>Jump to...</option>
+          </select>
+        </div>
+
         <div id="placeholder">
           <h1 id="placeholderText">Use the input box on the left to place some media here</h1>
         </div> 

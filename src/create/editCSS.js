@@ -1,4 +1,5 @@
 import { json } from './jsonModal.js';
+import { download } from './editHTML.js'
 
 /**
 * Append CSS style rules to the head of the document so 
@@ -47,10 +48,7 @@ export function removeCSS() {
     $("#selBgColor").val("").change();
     document.getElementById('cssText').value = '';
     var a = document.getElementById("downloadLink");
-    var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
-    a.href = 'data:' + data;
-    a.download = 'data.json';
-    a.innerHTML = 'Download JSON';
+    download(json);
   });
 }
 

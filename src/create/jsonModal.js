@@ -12,6 +12,7 @@ export var json = {
   bgColor: "#f9f9f9",
   css: "",
   initialHg: "",
+  titles: [],
   textSections: [],
   mediaSections: []
 }

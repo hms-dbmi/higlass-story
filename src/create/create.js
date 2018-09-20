@@ -2,6 +2,7 @@ import { changeSelDisplay } from './multimedia.js';
 import { loadHg } from '../loadHg.js';
 import { createDownload, selReset, createText, createImg, createYt, createVid, addMedia, submtitHgUrl, swap } from './editHTML.js';
 import { openFile, openJSONModal } from './jsonModal.js';
+import { openTitlesModal, addTitleRow, submitTitles, skipTo } from './sectionTitles.js';
 import { openCSSModal, removeCSS, editCSS } from './editCSS.js';
 import { editContent, changeSelEdit } from './editContent.js';
 import { sortable } from '../../third_party/jquery-sortable.js';
@@ -28,6 +29,11 @@ $(document).ready(function (){
 
   openJSONModal();
   document.getElementById('submitJSON').addEventListener('click', openFile, false);
+
+  openTitlesModal();
+  addTitleRow();
+  submitTitles();
+  skipTo();
 
   openCSSModal();
   removeCSS();

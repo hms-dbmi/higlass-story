@@ -150,6 +150,14 @@ input[type="url"]:focus {
   display:none
 }
 
+#selSectionDiv {
+  float:right;
+}
+
+.titleRow {
+  margin-bottom:1%;
+}
+
 #placeholder {
   width:90%; 
   height:80%; 
@@ -239,9 +247,14 @@ label {
   color:white; /* color */
 }
 
-#inputJSON {
+#inputJSON, #inputTitles {
   width:100%;
   margin-bottom:5%;
+}
+
+#addTitleRowDiv {
+  text-align:center;
+  margin: 2%;
 }
 
 .fa-clickable {
