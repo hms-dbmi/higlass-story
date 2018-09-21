@@ -14,6 +14,10 @@
   padding: 10px;
 }
 
+#selSectionDiv {
+  float:right;
+}
+
 #hg {
   float:right;
   position: fixed;

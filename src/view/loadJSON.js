@@ -2,6 +2,7 @@ import { activate } from '../scrollDown.js';
 import { reverse } from '../scrollUp.js';
 import { loadHg } from '../loadHg.js';
 import { scrollerDisplay } from '../../third_party/scrollerDisplay.js'
+import { loadTitles } from '../sectionTitles.js'
 
 /**
 * {Object} contains the contents of JSON file inputted by user
@@ -53,6 +54,7 @@ var loadJSON = function(json) {
   scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions);
   document.getElementById('inputJSON').style.display = 'none';
   setCSS();
+  loadTitles(json);
 }
 
 /**

@@ -3,6 +3,7 @@ import { cssEngine } from './editCSS.js'
 import { activate } from '../scrollDown.js'
 import { reverse } from '../scrollUp.js'
 import { scrollerDisplay } from '../../third_party/scrollerDisplay.js'
+import { loadTitles } from '../sectionTitles.js'
 
 /** {Object} keeps track of the details of the report */
 export var json = {
@@ -87,6 +88,7 @@ var loadJSON = function(obj) {
     sections.innerHTML += str;
   }
   setCSS(json);
+  loadTitles(json);
   scrollerDisplay(d3.select('#graphic'), 'step', activateFunctions, reverseFunctions);
   download(json);
 }

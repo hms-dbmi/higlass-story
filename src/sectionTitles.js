@@ -1,5 +1,5 @@
-import { json } from './jsonModal.js';
-import { download } from './editHTML.js'
+import { json } from './create/jsonModal.js';
+import { download } from './create/editHTML.js';
 
 /**
 * When "Set Titles" button is clicked, open corresponding modal
@@ -63,6 +63,25 @@ export function skipTo() {
     }
       }
   })
+  $("#selSection").val('choose').change();
+}
+
+/**
+* When user loads in report, populate selSection dropdown 
+*
+* @param Object obj - JSON file with metadata of report
+*/
+export function loadTitles(obj) {
+  var frag = document.createDocumentFragment();
+    frag.appendChild(new Option('Jump to...','choose'));
+    for(var i=1; i<obj.titles.length; i++) { // adjusted for first row being labels
+      var titleText = obj.titles[i][0];
+      var titleNum = obj.titles[i][1];
+      frag.appendChild(new Option(titleText, titleNum));
+    }
+    var select = document.getElementById("selSection");
+    $('#selSection').empty();
+    select.appendChild(frag);
 }
 
 /**
@@ -77,4 +96,3 @@ var offset = function(el) {
   var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   return rect.top + scrollTop
 }
-

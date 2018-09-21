@@ -150,10 +150,6 @@ input[type="url"]:focus {
   display:none
 }
 
-#selSectionDiv {
-  float:right;
-}
-
 .titleRow {
   margin-bottom:1%;
 }
